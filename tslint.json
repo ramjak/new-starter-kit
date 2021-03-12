@@ -1,0 +1,94 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
+  },
+  "rules": {
+    "array-type": false,
+    "arrow-return-shorthand": false,
+    "await-promise": [true, "Thenable"],
+    "ban-comma-operator": true,
+    "comment-format": false,
+    "curly": {
+      "severity": "warning",
+      "options": "ignore-same-line"
+    },
+    "deprecation": true,
+    "function-constructor": true,
+    "interface-name": {
+      "severity": "warning",
+      "options": "always-prefix"
+    },
+    "interface-over-type-literal": {
+      "severity": "warning"
+    },
+    "jsx-curly-spacing": false,
+    "jsx-equals-spacing": false,
+    "jsx-no-lambda": false,
+    "jsx-self-close": false,
+    "jsx-space-before-trailing-slash": false,
+    "max-classes-per-file": false,
+    "max-file-line-count": false,
+    "member-access": false,
+    "member-ordering": false,
+    "no-angle-bracket-type-assertion": false,
+    "no-console": false,
+    "no-duplicate-imports": false,
+    "no-duplicate-switch-case": true,
+    "no-duplicate-variable": {
+      "options": "check-parameters"
+    },
+    "no-empty": {
+      "options": ["allow-empty-catch", "allow-empty-functions"]
+    },
+    "no-empty-interface": false,
+    "no-floating-promises": true,
+    "no-for-in-array": true,
+    "no-implicit-dependencies": {
+      "options": ["dev"]
+    },
+    "no-shadowed-variable": false,
+    "no-string-literal": false,
+    "no-invalid-template-strings": true,
+    "no-parameter-reassignment": true,
+    "no-object-literal-type-assertion": [true, { "allow-arguments": true }],
+    "no-string-throw": false,
+    "no-tautology-expression": true,
+    "no-unbound-method": [
+      true,
+      { "ignore-static": true, "allow-typeof": true }
+    ],
+    "prefer-for-of": false,
+    "no-unused-expression": {
+      "options": [
+        "allow-fast-null-checks",
+        "allow-new",
+        "allow-tagged-template"
+      ]
+    },
+    "no-unused-variable": { "severity": "warning" },
+    "object-literal-key-quotes": false,
+    "object-literal-shorthand": false,
+    "object-literal-sort-keys": false,
+    "one-line": false,
+    "ordered-imports": false,
+    "prefer-const": {
+      "severity": "warning"
+    },
+    "prefer-readonly": {
+      "severity": "warning"
+    },
+    "static-this": true,
+    "space-before-function-paren": false,
+    "triple-equals": {
+      "options": ["allow-null-check", "allow-undefined-check"]
+    },
+    "variable-name": false
+  },
+  "rulesDirectory": []
+}
