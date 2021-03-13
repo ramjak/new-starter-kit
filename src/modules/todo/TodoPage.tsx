@@ -1,8 +1,7 @@
-import {Card, Checkbox, List, ListItem, ListItemIcon, ListItemText, Typography} from '@material-ui/core';
+import {Checkbox, List, ListItem, ListItemIcon, ListItemText, Typography} from '@material-ui/core';
 import React from 'react';
-import logo from "../../logo.svg";
-import styles from './TodoPage.module.scss';
 import ITodo from "../../domains/todo";
+import BasePage from "../../components/BasePage";
 
 interface ITodoPage {
 }
@@ -20,31 +19,26 @@ const todos: ITodo[] = [
 
 function TodoPage(props: ITodoPage) {
   return (
-    <div className={styles.App}>
-      <header className={styles.AppHeader}>
-        <img src={logo} className={styles.AppLogo} alt="logo" />
-        <Card className={styles.TodoCard}>
-          <Typography gutterBottom={true} variant="h5" component="h2">
-            Todo List:
-          </Typography>
-          <List component="nav" aria-label="secondary mailbox folders">
-            {todos.map(todo => (
-              <ListItem key={todo.task} role={undefined} dense={true}>
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    defaultChecked={todo.isDone}
-                    tabIndex={-1}
-                    disableRipple={true}
-                  />
-                </ListItemIcon>
-                <ListItemText primary={todo.task} />
-              </ListItem>
-            ))}
-          </List>
-        </Card>
-      </header>
-    </div>
+    <BasePage>
+      <Typography gutterBottom={true} variant="h5" component="h2">
+        Todo List:
+      </Typography>
+      <List component="nav">
+        {todos.map(todo => (
+          <ListItem key={todo.task} role={undefined} dense={true}>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                defaultChecked={todo.isDone}
+                tabIndex={-1}
+                disableRipple={true}
+              />
+            </ListItemIcon>
+            <ListItemText primary={todo.task} />
+          </ListItem>
+        ))}
+      </List>
+    </BasePage>
   );
 }
 
