@@ -1,14 +1,21 @@
 import React from 'react';
 import styles from "./BasePage.module.scss";
 import logo from "../logo.svg";
-import {AppBar, Button, Card, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Card, Button, Toolbar, Typography} from "@material-ui/core";
+import { Link } from "react-router-dom";
+
+export interface ILink {
+  text: string,
+  link: string
+}
 
 interface IBasePage {
-  children: React.ReactNode
+  children: React.ReactNode,
+  topNavLinks: ILink[]
 }
 
 function BasePage(props: IBasePage) {
-  const { children } = props;
+  const { children, topNavLinks } = props;
   return (
     <div className={styles.App}>
       <AppBar position="static">
@@ -16,8 +23,11 @@ function BasePage(props: IBasePage) {
           <Typography variant="h6" className={styles.appTitle}>
             Sample App
           </Typography>
-          <Button color="inherit">Todo</Button>
-          <Button color="inherit">Login</Button>
+          {topNavLinks.map(nav => (
+            <Button key={nav.link} component={Link} to={nav.link}>
+              {nav.text}
+            </Button>
+          ))}
         </Toolbar>
       </AppBar>
       <header className={styles.AppHeader}>

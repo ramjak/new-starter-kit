@@ -1,7 +1,6 @@
 import {Checkbox, List, ListItem, ListItemIcon, ListItemText, Typography} from '@material-ui/core';
 import React from 'react';
 import ITodo from "../../domains/todo";
-import BasePage from "../../components/BasePage";
 
 interface ITodoPage {
 }
@@ -9,7 +8,7 @@ interface ITodoPage {
 const todos: ITodo[] = [
   { task: 'Auth', isDone: false },
   { task: 'UI', isDone: true },
-  { task: 'Routing', isDone: false },
+  { task: 'Routing', isDone: true },
   { task: 'IoC Container', isDone: false },
   { task: 'Request service', isDone: false },
   { task: 'Sample domain', isDone: true },
@@ -19,7 +18,7 @@ const todos: ITodo[] = [
 
 function TodoPage(props: ITodoPage) {
   return (
-    <BasePage>
+    <>
       <Typography gutterBottom={true} variant="h5" component="h2">
         Todo List:
       </Typography>
@@ -38,7 +37,7 @@ function TodoPage(props: ITodoPage) {
           </ListItem>
         ))}
       </List>
-    </BasePage>
+    </>
   );
 }
 
