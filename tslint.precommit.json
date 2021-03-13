@@ -70,11 +70,7 @@
       ]
     },
     "object-literal-key-quotes": false,
-    "object-literal-sort-keys": [
-      true,
-      "ignore-case",
-      "locale-compare"
-    ],
+    "object-literal-sort-keys": false,
     "prefer-while": true,
     "static-this": true,
     "triple-equals": {
