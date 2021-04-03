@@ -1,0 +1,11 @@
+.section {
+  margin: 40px 0;
+  font-size: 24px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+  button {
+    margin-bottom: 40px;
+  }
+}
