@@ -4,17 +4,20 @@ import IAuthService from './IAuthService';
 import IPersistentStorage from './IPersistentStorage';
 import IRequestService from './IRequestService';
 import RequestService from './RequestService';
+import MockRequestService from './MockRequestService';
 
 export interface IServices {
   getCookieService: () => IPersistentStorage;
   getAuthService: () => IAuthService;
   getRequestService: () => IRequestService;
+  getMockRequestService: () => IRequestService;
 }
 
 // todo: change this into singleton
 function makeServices(): IServices {
   let authService: IAuthService;
   let requestService: IRequestService;
+  let mockRequestService: IRequestService;
 
   const getCookieService = () => {
     return cookieService;
@@ -34,9 +37,17 @@ function makeServices(): IServices {
     return requestService;
   };
 
+  const getMockRequestService = () => {
+    if (!mockRequestService) {
+      mockRequestService = new MockRequestService();
+    }
+    return mockRequestService;
+  };
+
   return {
     getCookieService,
     getAuthService,
+    getMockRequestService,
     getRequestService,
   };
 }
