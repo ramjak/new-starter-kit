@@ -1,20 +1,27 @@
-import {Checkbox, List, ListItem, ListItemIcon, ListItemText, Typography} from '@material-ui/core';
+import {
+  Checkbox,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+} from '@material-ui/core';
 import React from 'react';
-import ITodo from "../../domains/todo";
+import ITodo from '../../domains/todo';
 
-interface ITodoPage {
-}
+interface ITodoPage {}
 
 const todos: ITodo[] = [
   { task: 'Auth', isDone: false },
   { task: 'UI', isDone: true },
   { task: 'Routing', isDone: true },
-  { task: 'IoC Container', isDone: false },
-  { task: 'Request service', isDone: false },
+  { task: 'IoC Container', isDone: true },
+  { task: 'Request service', isDone: true },
+  { task: 'Request sample', isDone: false },
   { task: 'Sample domain', isDone: true },
   { task: 'Code styling config', isDone: true },
   { task: 'Sample testing', isDone: false },
-]
+];
 
 function TodoPage(props: ITodoPage) {
   return (
@@ -23,7 +30,7 @@ function TodoPage(props: ITodoPage) {
         Todo List:
       </Typography>
       <List component="nav">
-        {todos.map(todo => (
+        {todos.map((todo) => (
           <ListItem key={todo.task} role={undefined} dense={true}>
             <ListItemIcon>
               <Checkbox
