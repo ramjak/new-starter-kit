@@ -1,26 +1,13 @@
 import React from 'react';
-import BasePage, { ILink } from './components/BasePage';
 import ROUTES, { IRoute } from './routes';
 import { IObjectMap } from './helpers/types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core';
+import './App.css';
 
 function App() {
-  function getLinks(o: IObjectMap<IRoute>) {
-    return Object.keys(o).map((route) => ({
-      text: route,
-      link: o[route].path,
-    }));
-  }
-
-  // const getLinks = (routes: IRoute[]) => routes.map(route => ({ text: route. }))
-  const routeLinks: ILink[] = [
-    ...getLinks(ROUTES.free),
-    ...getLinks(ROUTES.nonAuthed),
-  ];
-
-  function getRoutes(currRoutes: IObjectMap<IRoute>) {
-    return Object.values(currRoutes).map((route) => (
+  const getRoutes = (currRoutes: IObjectMap<IRoute>) =>
+    Object.values(currRoutes).map((route) => (
       <Route
         key={route.path}
         exact={route.exact}
@@ -30,18 +17,17 @@ function App() {
         render={(props) => <route.component {...props} />}
       />
     ));
-  }
 
-  const routes = [...getRoutes(ROUTES.nonAuthed), ...getRoutes(ROUTES.free)];
+  const routes = [...getRoutes(ROUTES)];
+
   return (
     <BrowserRouter>
       <StylesProvider injectFirst={true}>
-        <BasePage topNavLinks={routeLinks}>
-          <Switch>
-            {routes}
-            {/*<Route component={() => <h1>Not Found!</h1>} />*/}
-          </Switch>
-        </BasePage>
+        <Switch>
+          {routes}
+          {/* tslint:disable-next-line jsx-no-lambda  */}
+          <Route component={() => <h1>Not Found!</h1>} />
+        </Switch>
       </StylesProvider>
     </BrowserRouter>
   );
