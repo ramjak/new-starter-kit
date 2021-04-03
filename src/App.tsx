@@ -3,6 +3,7 @@ import BasePage, { ILink } from './components/BasePage';
 import ROUTES, { IRoute } from './routes';
 import { IObjectMap } from './helpers/types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { StylesProvider } from '@material-ui/core';
 
 function App() {
   function getLinks(o: IObjectMap<IRoute>) {
@@ -34,12 +35,14 @@ function App() {
   const routes = [...getRoutes(ROUTES.nonAuthed), ...getRoutes(ROUTES.free)];
   return (
     <BrowserRouter>
-      <BasePage topNavLinks={routeLinks}>
-        <Switch>
-          {routes}
-          {/*<Route component={() => <h1>Not Found!</h1>} />*/}
-        </Switch>
-      </BasePage>
+      <StylesProvider injectFirst={true}>
+        <BasePage topNavLinks={routeLinks}>
+          <Switch>
+            {routes}
+            {/*<Route component={() => <h1>Not Found!</h1>} />*/}
+          </Switch>
+        </BasePage>
+      </StylesProvider>
     </BrowserRouter>
   );
 }
