@@ -22,5 +22,5 @@ export enum requestMethod {
 
 export default interface IRequestService {
   get(path: string, options?: IRequestOptions): any;
-  post(path: string, payload: IPayload, options: IPostRequestOptions): any;
+  post(path: string, payload: IPayload, options?: IPostRequestOptions): any;
 }
