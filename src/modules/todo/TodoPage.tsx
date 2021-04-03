@@ -18,6 +18,7 @@ const todos: ITodo[] = [
   { task: 'IoC Container', isDone: true },
   { task: 'Request service', isDone: true },
   { task: 'Request sample', isDone: false },
+  { task: 'Domain hook sample', isDone: false },
   { task: 'Sample domain', isDone: true },
   { task: 'Code styling config', isDone: true },
   { task: 'Sample testing', isDone: false },
