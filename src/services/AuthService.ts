@@ -1,51 +1,35 @@
-import IAuthService, { onTokenChangeType } from './IAuthService';
+import IAuthService from './IAuthService';
 import IPersistentStorage from './IPersistentStorage';
+import { inject, injectable } from 'inversify';
+import TYPES from './types';
 
+@injectable()
 export default class AuthService implements IAuthService {
-  get onTokenChange(): onTokenChangeType {
-    return this._onTokenChange;
-  }
-
-  set onTokenChange(func: onTokenChangeType) {
-    func(this.getToken());
-    this._onTokenChange = func;
-  }
   public static readonly AUTH_KEY = '_app_';
   public static readonly DAY_AFTER_EXPIRED = 7;
 
-  private storage: IPersistentStorage;
+  @inject(TYPES.PersistentService) private storage: IPersistentStorage;
+  public errorMessage: string;
+  public isLoading: boolean;
 
-  constructor(storage: IPersistentStorage) {
-    this.storage = storage;
-  }
-  private _onTokenChange: onTokenChangeType = (token: string) => {
-    // tslint:disable-next-line no-console
-    console.log('no token listener has been set', { token });
-  };
-
-  public deleteToken(): void {
+  public logout() {
     this.storage.remove(AuthService.AUTH_KEY);
-    this._onTokenChange('');
+    return Promise.resolve();
   }
 
-  public getToken(): string {
+  public getAuthData() {
     const val = this.storage.get(AuthService.AUTH_KEY);
     if (!val) {
       // throw new Error("Token doesn't exist");
-      return '';
+      return null;
     }
-    return val;
+    return { username: 'test', token: val };
   }
 
-  public refreshToken(): void {
-    const currentToken = this.getToken();
-    this.saveToken(currentToken);
-  }
-
-  public saveToken(token: string): void {
+  public login(token: string) {
     this.storage.set(AuthService.AUTH_KEY, token, {
       expires: AuthService.DAY_AFTER_EXPIRED,
     });
-    this._onTokenChange(token);
+    return Promise.resolve();
   }
 }

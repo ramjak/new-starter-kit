@@ -4,17 +4,17 @@ import {
   set as setCookie,
 } from 'es-cookie';
 import IPersistentStorage, { IStorageOptions } from './IPersistentStorage';
+import { injectable } from 'inversify';
 
-const cookieService: IPersistentStorage = {
-  get(name: string): string | undefined {
+@injectable()
+export default class CookieService implements IPersistentStorage {
+  public get(name: string): string | undefined {
     return getCookie(name);
-  },
-  set(name: string, value: string, options?: IStorageOptions): void {
+  }
+  public set(name: string, value: string, options?: IStorageOptions): void {
     setCookie(name, value, options);
-  },
-  remove(name) {
+  }
+  public remove(name: string) {
     removeCookie(name);
-  },
-};
-
-export default cookieService;
+  }
+}

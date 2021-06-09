@@ -5,16 +5,15 @@ import IRequestService, {
   IPayload,
   IPostRequestOptions,
   IRequestOptions,
-  requestMethod,
+  requestMethodEnum,
 } from './IRequestService';
+import { inject, injectable } from 'inversify';
+import TYPES from './types';
 
+@injectable()
 export default class RequestService implements IRequestService {
-  private authService: IAuthService;
-  private baseUrl = process.env.REACT_APP_BASE_URL;
-
-  constructor(authService: IAuthService) {
-    this.authService = authService;
-  }
+  @inject(TYPES.AuthService) private authService: IAuthService;
+  private baseUrl = process.env.REACT_APP_BASE_API_URL;
 
   private async setUpHeaders(options?: IPostRequestOptions) {
     const headers: HeadersInit = {
@@ -28,7 +27,7 @@ export default class RequestService implements IRequestService {
 
       if (typeof options.doSendAuth === 'boolean') {
         try {
-          headers.Authorization = this.authService.getToken();
+          // headers.Authorization = this.authService.getToken();
         } catch (e) {
           throw new Error('No auth data found');
         }
@@ -38,16 +37,17 @@ export default class RequestService implements IRequestService {
     return headers;
   }
 
-  private async request(
-    method: requestMethod,
+  public async request(
+    method: requestMethodEnum,
     path: string,
     payload: IPayload,
     requestOptions?: IPostRequestOptions
   ) {
     const headers = this.setUpHeaders(requestOptions);
+    // console.log({payload});
 
     const requestConfig: AxiosRequestConfig = {
-      data: {},
+      data: payload,
       headers,
       method,
       url: `${this.baseUrl}${path}`,
@@ -69,12 +69,11 @@ export default class RequestService implements IRequestService {
         }
 
         requestConfig.data = formData;
-      } else {
-        requestConfig.data = payload;
       }
     }
 
     const res = await axios.request(requestConfig);
+    // console.log({ res,  requestConfig });
     const json = res.data;
     if (res.status < 200 || res.status > 299) {
       // todo: should create a new error type
@@ -85,7 +84,7 @@ export default class RequestService implements IRequestService {
   }
 
   public get(path: string, options?: IRequestOptions): Promise<any> {
-    return this.request(requestMethod.get, path, {}, options);
+    return this.request(requestMethodEnum.GET, path, {}, options);
   }
 
   public post(
@@ -93,6 +92,6 @@ export default class RequestService implements IRequestService {
     payload: IPayload,
     options: IPostRequestOptions
   ): Promise<any> {
-    return this.request(requestMethod.post, path, payload, options);
+    return this.request(requestMethodEnum.POST, path, payload, options);
   }
 }
