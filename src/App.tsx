@@ -1,47 +1,70 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import BasePage, { ILink } from './components/BasePage';
-import ROUTES, { IRoute } from './routes';
-import { IObjectMap } from './helpers/types';
+import ROUTES, { IRoute, routeEnum } from './routes';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core';
+import { IUserContextValue, UserContextProvider } from './contexts/UserContext';
 
 function App() {
-  function getLinks(o: IObjectMap<IRoute>) {
-    return Object.keys(o).map((route) => ({
-      text: route,
-      link: o[route].path,
-    }));
+  function getLinks(text: string, route: IRoute) {
+    return {
+      text,
+      link: route.path,
+    };
   }
 
-  // const getLinks = (routes: IRoute[]) => routes.map(route => ({ text: route. }))
-  const routeLinks: ILink[] = [
-    ...getLinks(ROUTES.free),
-    ...getLinks(ROUTES.nonAuthed),
+  const getRouteLinks = (isAuthenticated: boolean): ILink[] => [
+    getLinks('Todo', ROUTES.todos),
+    ...(!isAuthenticated
+      ? [getLinks('Home', ROUTES.home), getLinks('Login', ROUTES.login)]
+      : []),
+    ...(isAuthenticated
+      ? [
+          getLinks('Home', ROUTES.homeUser),
+          getLinks('Post', ROUTES.post),
+          getLinks('Logout', ROUTES.logout),
+        ]
+      : []),
   ];
 
-  function getRoutes(currRoutes: IObjectMap<IRoute>) {
-    return Object.values(currRoutes).map((route) => (
-      <Route
-        key={route.path}
-        exact={route.exact}
-        path={route.path}
-        // @ts-ignore
-        // tslint:disable-next-line jsx-no-lambda
-        render={(props) => <route.component {...props} />}
-      />
-    ));
-  }
+  const getRoutes = useCallback(
+    (isAuthed: boolean) =>
+      Object.values(ROUTES)
+        .filter(
+          (r) =>
+            (r.type === routeEnum.GUEST && !isAuthed) ||
+            (r.type === routeEnum.AUTHED && isAuthed) ||
+            r.type === routeEnum.FREE
+        )
+        .map((route) => (
+          <Route
+            key={route.path}
+            exact={route.exact}
+            path={route.path}
+            // @ts-ignore
+            // tslint:disable-next-line jsx-no-lambda
+            render={(props) => <route.component {...props} />}
+          />
+        )),
+    []
+  );
 
   const routes = [...getRoutes(ROUTES.nonAuthed), ...getRoutes(ROUTES.free)];
   return (
     <BrowserRouter>
       <StylesProvider injectFirst={true}>
-        <BasePage topNavLinks={routeLinks}>
-          <Switch>
-            {routes}
-            {/*<Route component={() => <h1>Not Found!</h1>} />*/}
-          </Switch>
-        </BasePage>
+        <UserContextProvider>
+          {({ userData }: IUserContextValue) => {
+            return (
+              <BasePage topNavLinks={getRouteLinks(!!userData.token)}>
+                <Switch>
+                  {getRoutes(!!userData.username)}
+                  <Route component={renderNotFound} />
+                </Switch>
+              </BasePage>
+            );
+          }}
+        </UserContextProvider>
       </StylesProvider>
     </BrowserRouter>
   );
