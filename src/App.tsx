@@ -49,7 +49,8 @@ function App() {
     []
   );
 
-  const routes = [...getRoutes(ROUTES.nonAuthed), ...getRoutes(ROUTES.free)];
+  const renderNotFound = useCallback(() => <h1>Not Found!</h1>, []);
+
   return (
     <BrowserRouter>
       <StylesProvider injectFirst={true}>

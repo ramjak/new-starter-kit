@@ -2,6 +2,7 @@ import IRequestService, {
   IPayload,
   IPostRequestOptions,
   IRequestOptions,
+  requestMethodEnum,
 } from './IRequestService';
 
 function generateRandomRealString() {
@@ -96,7 +97,20 @@ export default class MockRequestService implements IRequestService {
     }
   }
 
-  public post(path: string, payload: IPayload, options?: IPostRequestOptions): any {
+  public post(
+    path: string,
+    payload: IPayload,
+    options?: IPostRequestOptions
+  ): any {
     return {};
+  }
+
+  public request(
+    method: requestMethodEnum,
+    path: string,
+    payload: IPayload,
+    requestOptions?: IPostRequestOptions
+  ): Promise<any> {
+    return Promise.resolve(undefined);
   }
 }

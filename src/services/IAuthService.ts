@@ -1,8 +1,9 @@
-export type onTokenChangeType = (token: string) => any;
+import { IUser } from '../contexts/UserContext';
+
 export default interface IAuthService {
-  onTokenChange: onTokenChangeType;
-  deleteToken(): void;
-  getToken(): string;
-  refreshToken(): void;
-  saveToken(token: string): void;
+  isLoading: boolean;
+  errorMessage: string;
+  login(...args: any[]): Promise<void>;
+  getAuthData(): IUser | null;
+  logout(): Promise<void>;
 }
