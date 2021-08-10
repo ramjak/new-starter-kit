@@ -1,16 +1,10 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { Button, Input } from '@material-ui/core';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Button, TextField } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
+import { Formik, Form, Field, FormikHelpers } from 'formik';
 import ROUTES, { useNavigateTo } from '../../routes';
 import usePost from '../../domainHooks/usePost';
-import IPost from '../../domains/post';
+import IPost, { postSchema } from '../../domains/post';
 import { domainPayload } from '../../domainHooks/domainHooksType';
 
 interface ISetPostPage {}
@@ -37,57 +31,67 @@ function SetPostPage(props: ISetPostPage) {
     location.pathname,
   ]);
 
-  const changeTitle = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setPost((prevState) => ({ ...prevState, title: value }));
-  }, []);
-
-  const changeBody = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-    setPost((prevState) => ({ ...prevState, body: value }));
-  }, []);
-
   const submit = useCallback(
-    (e: FormEvent) => {
-      e.preventDefault();
-
+    async (
+      values: domainPayload<IPost>,
+      helper: FormikHelpers<domainPayload<IPost>>
+    ) => {
       if (isCreate) {
         // tslint:disable-next-line no-floating-promises
-        store(post);
-        setPost(initialPost);
+        await store(values);
+        helper.resetForm();
       } else {
         const id = location.pathname.split('/')[2];
         // tslint:disable-next-line no-floating-promises
-        update(post, id);
+        update(values, id);
         navigateTo(ROUTES.post);
       }
+      helper.setSubmitting(false);
     },
-    [isCreate, navigateTo, initialPost, post, store, update, location.pathname]
+    [isCreate, navigateTo, store, update, location.pathname]
   );
 
   return (
     <main>
       <h1>{isCreate ? 'Create' : 'Update'} Post</h1>
-      <form title="Create post form" onSubmit={submit}>
-        <Input
-          placeholder="title"
-          fullWidth={true}
-          value={post.title}
-          onChange={changeTitle}
-        />
-        <Input
-          multiline={true}
-          placeholder="body"
-          fullWidth={true}
-          rowsMin={2}
-          rows={2}
-          value={post.body}
-          onChange={changeBody}
-        />
-        <Button type="submit" fullWidth={true} variant="outlined">
-          {isCreate ? 'Create' : 'Update'}
-        </Button>
-      </form>
+      <Formik
+        initialValues={post}
+        enableReinitialize={true}
+        onSubmit={submit}
+        validationSchema={postSchema}
+      >
+        {({ isSubmitting, errors, touched, isValid, dirty }) => (
+          <Form title="Create post form">
+            <Field
+              as={TextField}
+              error={errors.title && touched.title}
+              helperText={touched.title && errors.title}
+              placeholder="title"
+              name="title"
+              fullWidth={true}
+            />
+            <Field
+              as={TextField}
+              multiline={true}
+              error={errors.body && touched.body}
+              helperText={touched.body && errors.body}
+              placeholder="body"
+              name="body"
+              fullWidth={true}
+              rowsMin={2}
+              rows={2}
+            />
+            <Button
+              type="submit"
+              fullWidth={true}
+              variant="outlined"
+              disabled={isSubmitting || !(isValid && dirty)}
+            >
+              {isCreate ? 'Create' : 'Update'}
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </main>
   );
 }

@@ -21,6 +21,7 @@ const todos: ITodo[] = [
   { task: 'Domain hook sample', isDone: true },
   { task: 'Sample domain', isDone: true },
   { task: 'Code styling config', isDone: true },
+  { task: 'Form handling', isDone: true },
   { task: 'Sample testing', isDone: false },
 ];
 

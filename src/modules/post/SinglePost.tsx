@@ -25,7 +25,7 @@ export function SinglePost({ item, destroy }: ISinglePost) {
   return (
     <article className={styles.post}>
       <h2>
-        <Link route={ROUTES.editSinglePost} params={[item.id]}>
+        <Link route={ROUTES.viewSinglePost} params={[item.id]}>
           {item.title}
         </Link>
       </h2>
