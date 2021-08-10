@@ -6,11 +6,13 @@ import TYPES from '../services/types';
 export interface IUser {
   username: string;
   token: string;
+  email: string;
 }
 
 const defaultUserValue = {
   username: '',
   token: '',
+  email: '',
 };
 
 export interface IUserContextValue {

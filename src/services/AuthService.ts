@@ -23,7 +23,7 @@ export default class AuthService implements IAuthService {
       // throw new Error("Token doesn't exist");
       return null;
     }
-    return { username: 'test', token: val };
+    return { username: 'test', token: val, email: 'test@email.com' };
   }
 
   public login(token: string) {

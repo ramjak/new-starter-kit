@@ -28,6 +28,7 @@ function LoginPage(props: ILoginPage) {
     setUserData({
       token,
       username: value.username,
+      email: `${value.username}@email.com`,
     });
     navigateTo(ROUTES.home);
   }

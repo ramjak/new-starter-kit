@@ -12,7 +12,7 @@ function Logout(props: ILogout) {
   const { setUserData } = useUserContext();
   const authService = container.get<IAuthService>(TYPES.AuthService);
 
-  setUserData({ token: '', username: '' });
+  setUserData({ token: '', username: '', email: '' });
   // tslint:disable-next-line no-floating-promises
   authService.logout();
 
