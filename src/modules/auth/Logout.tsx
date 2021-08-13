@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import ROUTES from '../../routes';
 import { useUserContext } from '../../contexts/UserContext';
-import { container } from '../../inversify.config';
+import container from '../../inversify.config';
 import TYPES from '../../services/types';
 import IAuthService from '../../services/IAuthService';
 

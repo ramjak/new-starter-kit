@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { container } from '../inversify.config';
+import container from '../inversify.config';
 import IAuthService from '../services/IAuthService';
 import TYPES from '../services/types';
 
@@ -23,7 +23,7 @@ export interface IUserContextValue {
 const userContext = createContext<IUserContextValue>({
   userData: defaultUserValue,
   setUserData(): void {
-    return;
+    console.log('setUserData');
   },
 });
 

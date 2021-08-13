@@ -1,20 +1,20 @@
-import {
-  get as getCookie,
-  remove as removeCookie,
-  set as setCookie,
-} from 'es-cookie';
-import IPersistentStorage, { IStorageOptions } from './IPersistentStorage';
+import esCookie from 'es-cookie';
 import { injectable } from 'inversify';
+import IPersistentStorage, { IStorageOptions } from './IPersistentStorage';
 
 @injectable()
 export default class CookieService implements IPersistentStorage {
+  private readonly cookie = esCookie;
+
   public get(name: string): string | undefined {
-    return getCookie(name);
+    return this.cookie.get(name);
   }
+
   public set(name: string, value: string, options?: IStorageOptions): void {
-    setCookie(name, value, options);
+    this.cookie.set(name, value, options);
   }
+
   public remove(name: string) {
-    removeCookie(name);
+    this.cookie.remove(name);
   }
 }

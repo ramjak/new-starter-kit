@@ -27,6 +27,8 @@
     "strictFunctionTypes": false,
   },
   "include": [
-    "src"
+    "src",
+    ".eslintrc.js",
+    ".eslintrc.precommit.js"
   ]
 }

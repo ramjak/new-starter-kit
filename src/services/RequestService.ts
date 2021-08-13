@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import queryStringEncode from 'query-string-encode';
+import { inject, injectable } from 'inversify';
 import IAuthService from './IAuthService';
 import IRequestService, {
   IPayload,
@@ -7,15 +8,15 @@ import IRequestService, {
   IRequestOptions,
   requestMethodEnum,
 } from './IRequestService';
-import { inject, injectable } from 'inversify';
 import TYPES from './types';
 
 @injectable()
 export default class RequestService implements IRequestService {
-  @inject(TYPES.AuthService) private authService: IAuthService;
-  private baseUrl = process.env.REACT_APP_BASE_API_URL;
+  @inject(TYPES.AuthService) private readonly authService: IAuthService;
 
-  private async setUpHeaders(options?: IPostRequestOptions) {
+  private readonly baseUrl = process.env.REACT_APP_BASE_API_URL;
+
+  private static async setUpHeaders(options?: IPostRequestOptions) {
     const headers: HeadersInit = {
       Accept: 'application/json',
     };
@@ -43,7 +44,7 @@ export default class RequestService implements IRequestService {
     payload: IPayload,
     requestOptions?: IPostRequestOptions
   ) {
-    const headers = this.setUpHeaders(requestOptions);
+    const headers = RequestService.setUpHeaders(requestOptions);
     // console.log({payload});
 
     const requestConfig: AxiosRequestConfig = {
@@ -55,18 +56,15 @@ export default class RequestService implements IRequestService {
 
     if (requestOptions) {
       if (requestOptions.queryObj) {
-        requestConfig.url =
-          requestConfig.url + queryStringEncode(requestOptions);
+        requestConfig.url += queryStringEncode(requestOptions);
       }
 
       if (payload && requestOptions.doWithFormData) {
         const formData = new FormData();
 
-        for (const key in payload) {
-          if (payload.hasOwnProperty(key)) {
-            formData.append(key, payload[key]);
-          }
-        }
+        Object.keys(payload).forEach((key) => {
+          formData.append(key, payload[key]);
+        });
 
         requestConfig.data = formData;
       }

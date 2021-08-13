@@ -16,4 +16,4 @@ container.bind<IPersistentStorage>(TYPES.PersistentService).to(CookieService);
 container.bind<IRequestService>(TYPES.RequestService).to(RequestService);
 // .inSingletonScope();
 
-export { container };
+export default container;

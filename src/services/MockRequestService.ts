@@ -7,7 +7,7 @@ import IRequestService, {
 
 function generateRandomRealString() {
   const randomDigits = Math.floor((Math.random() * 100) % 16) + 1;
-  return String(Math.random() * Math.pow(10, randomDigits));
+  return String(Math.random() * 10 ** randomDigits);
 }
 
 function generateRandomIntegerString() {
@@ -18,7 +18,7 @@ function generateString(characters: string) {
   let result = '';
   const charactersLength = characters.length;
   const length = Math.floor((Math.random() * 100) % 16) + 1;
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < length; i = i + 1) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
@@ -49,7 +49,7 @@ function generateRandomData() {
   while (charLeft > 0) {
     const randomDigit = Math.floor((Math.random() * 100) % 4);
     let currentString = '';
-    let currentType = '';
+    let currentType: keyof typeof total;
     switch (randomDigit) {
       case 0:
         currentString = generateRandomAlphabetString();
@@ -70,7 +70,6 @@ function generateRandomData() {
     if (currentString.length + 2 <= charLeft) {
       str += currentString;
       str += '%2C%20';
-      // @ts-ignore
       total[currentType] += 1;
       charLeft -= currentString.length + 2;
     } else {
@@ -79,7 +78,7 @@ function generateRandomData() {
   }
 
   return {
-    url: 'data:application/octet-stream;charset=utf-8,' + str,
+    url: `data:application/octet-stream;charset=utf-8,${  str}`,
     summary: total,
   };
 }

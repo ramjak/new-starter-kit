@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
-import BasePage, { ILink } from './components/BasePage';
-import ROUTES, { IRoute, routeEnum } from './routes';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core';
+import BasePage, { ILink } from './components/BasePage';
+import ROUTES, { IRoute, routeEnum } from './routes';
 import { IUserContextValue, UserContextProvider } from './contexts/UserContext';
 
 function App() {
@@ -41,8 +41,6 @@ function App() {
             key={route.path}
             exact={route.exact}
             path={route.path}
-            // @ts-ignore
-            // tslint:disable-next-line jsx-no-lambda
             render={(props) => <route.component {...props} />}
           />
         )),

@@ -85,8 +85,8 @@ const usePost: usePostType = (options = { doUseList: true }) => {
   );
 
   useEffect(() => {
-    getAll();
     const currentSources = ongoingRequestSources.current;
+    getAll();
     return () =>
       currentSources.forEach((source) =>
         source.cancel('Cancelling in cleanup')

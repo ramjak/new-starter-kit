@@ -8,4 +8,4 @@ export const postSchema = object({
 export default interface IPost extends Asserts<typeof postSchema> {
   userId: number;
   id: number;
-}
+};

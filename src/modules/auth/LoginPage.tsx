@@ -1,6 +1,6 @@
 import { Button, Input } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { container } from '../../inversify.config';
+import container from '../../inversify.config';
 import TYPES from '../../services/types';
 import IAuthService from '../../services/IAuthService';
 import ROUTES, { useNavigateTo } from '../../routes';

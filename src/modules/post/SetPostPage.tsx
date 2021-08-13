@@ -20,7 +20,6 @@ function SetPostPage(props: ISetPostPage) {
   useEffect(() => {
     const id = location.pathname.split('/')[2];
     if (id !== 'create') {
-      // tslint:disable-next-line no-floating-promises
       read(id).then((currentPost) => {
         setPost(currentPost);
       });
@@ -37,12 +36,10 @@ function SetPostPage(props: ISetPostPage) {
       helper: FormikHelpers<domainPayload<IPost>>
     ) => {
       if (isCreate) {
-        // tslint:disable-next-line no-floating-promises
         await store(values);
         helper.resetForm();
       } else {
         const id = location.pathname.split('/')[2];
-        // tslint:disable-next-line no-floating-promises
         update(values, id);
         navigateTo(ROUTES.post);
       }
@@ -87,7 +84,7 @@ function SetPostPage(props: ISetPostPage) {
               variant="outlined"
               disabled={isSubmitting || !(isValid && dirty)}
             >
-              {isCreate ? 'Create' : 'Update'}
+              {isCreate ? "Create" : "Update"}
             </Button>
           </Form>
         )}

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Dispatch, SetStateAction } from 'react';
-import { container } from '../inversify.config';
+import container from '../inversify.config';
 import TYPES from '../services/types';
 import IRequestService, {
   requestMethodEnum,
@@ -68,7 +68,7 @@ export default function createRequest<Data>(
           errorMessage: e?.message,
         }));
         // tslint:disable-next-line no-console
-        console.error('an error happened:' + e?.message);
+        console.error(`an error happened:${  e?.message}`);
       }
       throw e;
     }

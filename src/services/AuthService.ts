@@ -1,15 +1,18 @@
+import { inject, injectable } from 'inversify';
 import IAuthService from './IAuthService';
 import IPersistentStorage from './IPersistentStorage';
-import { inject, injectable } from 'inversify';
 import TYPES from './types';
 
 @injectable()
 export default class AuthService implements IAuthService {
   public static readonly AUTH_KEY = '_app_';
+
   public static readonly DAY_AFTER_EXPIRED = 7;
 
-  @inject(TYPES.PersistentService) private storage: IPersistentStorage;
+  @inject(TYPES.PersistentService) private readonly storage: IPersistentStorage;
+
   public errorMessage: string;
+
   public isLoading: boolean;
 
   public logout() {

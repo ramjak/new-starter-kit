@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
 import TodoPage from './modules/todo';
 import LoginPage from './modules/auth/LoginPage';
 import Logout from './modules/auth/Logout';
 import PostPage from './modules/post';
 import SetPostPage from './modules/post/SetPostPage';
-import { SinglePostPage } from './modules/post/SinglePostPage';
-import { useHistory, Link as RouterLink } from 'react-router-dom';
+import SinglePostPage  from './modules/post/SinglePostPage';
 
 export enum routeEnum {
   FREE = 'FREE',
@@ -16,7 +16,7 @@ export enum routeEnum {
 export interface IRoute {
   path: string;
   exact?: boolean;
-  component: React.ReactNode;
+  component: React.ComponentType<any>;
   type: routeEnum;
 }
 
@@ -70,17 +70,17 @@ const getPath = (route: IRoute, ...params: string[] | number[]) => {
   if (wildCards.length < params.length) {
     // tslint:disable-next-line no-console
     console.warn(
-      'You have too many params for ' +
-        route.path +
-        '. Current params: ' +
-        params.join(',')
+      `You have too many params for ${ 
+        route.path 
+        }. Current params: ${ 
+        params.join(',')}`
     );
   } else if (wildCards.length > params.length) {
     throw new Error(
-      'You need to include enough param for ' +
-        route.path +
-        '. Current params: ' +
-        params.join(',')
+      `You need to include enough param for ${ 
+        route.path 
+        }. Current params: ${ 
+        params.join(',')}`
     );
   }
   return wildCards.reduce(
@@ -105,7 +105,6 @@ interface ILink {
   params?: string[] | number[];
 }
 
-// tslint:disable-next-line variable-name
 export const Link: React.FC<ILink> = (props) => {
   return (
     <RouterLink to={getPath(props.route, ...props.params)}>

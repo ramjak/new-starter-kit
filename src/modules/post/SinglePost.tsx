@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import styles from './SinglePost.module.scss';
 import { Button } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
+import styles from './SinglePost.module.scss';
 import IPost from '../../domains/post';
 import ROUTES, { Link, useNavigateTo } from '../../routes';
 
@@ -10,7 +10,7 @@ interface ISinglePost {
   destroy(id: string): Promise<any>;
 }
 
-export function SinglePost({ item, destroy }: ISinglePost) {
+export default function SinglePost({ item, destroy }: ISinglePost) {
   const navigateTo = useNavigateTo();
 
   const navigateToEditForm = useCallback(

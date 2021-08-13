@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from "./BasePage.module.scss";
-import logo from "../logo.svg";
 import {AppBar, Card, Button, Toolbar, Typography} from "@material-ui/core";
 import { Link } from "react-router-dom";
+import styles from "./BasePage.module.scss";
+import logo from "../logo.svg";
 
 export interface ILink {
   text: string,

@@ -1,21 +1,21 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Button, TextField } from '@material-ui/core';
+import { Field, Form, Formik } from 'formik';
+import { FormikHelpers } from 'formik/dist/types';
 import IPost from '../../domains/post';
 import usePost from '../../domainHooks/usePost';
 import { domainPayload } from '../../domainHooks/domainHooksType';
-import { useLocation } from 'react-router-dom';
 import useComment from '../../domainHooks/useComment';
 import SingleComment from './SingleComment';
-import { Button, TextField } from '@material-ui/core';
-import { Field, Form, Formik } from 'formik';
 import IComment, { commentSchema } from '../../domains/comment';
-import { FormikHelpers } from 'formik/dist/types';
-import { container } from '../../inversify.config';
+import container from '../../inversify.config';
 import IAuthService from '../../services/IAuthService';
 import TYPES from '../../services/types';
 
 interface ISinglePostPage {}
 
-export function SinglePostPage(props: ISinglePostPage) {
+export default function SinglePostPage(props: ISinglePostPage) {
   const location = useLocation();
 
   const id = useMemo(() => location.pathname.split('/')[2], [

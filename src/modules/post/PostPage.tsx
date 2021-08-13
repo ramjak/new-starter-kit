@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
-import usePost from '../../domainHooks/usePost';
-import styles from './PostPage.module.scss';
 import { Button } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import { SinglePost } from './SinglePost';
+import usePost from '../../domainHooks/usePost';
+import styles from './PostPage.module.scss';
+import SinglePost  from './SinglePost';
 import ROUTES, { useNavigateTo } from '../../routes';
 
 interface IPostPage {}
