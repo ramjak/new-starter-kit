@@ -1,24 +1,24 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Button, TextField } from '@material-ui/core';
-import { Field, Form, Formik } from 'formik';
-import { FormikHelpers } from 'formik/dist/types';
-import IPost from '../../domains/post';
-import usePost from '../../domainHooks/usePost';
-import { domainPayload } from '../../domainHooks/domainHooksType';
-import useComment from '../../domainHooks/useComment';
-import SingleComment from './SingleComment';
-import IComment, { commentSchema } from '../../domains/comment';
-import container from '../../inversify.config';
-import IAuthService from '../../services/IAuthService';
-import TYPES from '../../services/types';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Button, TextField } from "@material-ui/core";
+import { Field, Form, Formik } from "formik";
+import { FormikHelpers } from "formik/dist/types";
+import IPost from "../../domains/post";
+import usePost from "../../domainHooks/usePost";
+import { domainPayload } from "../../domainHooks/domainHooksType";
+import useComment from "../../domainHooks/useComment";
+import SingleComment from "./SingleComment";
+import IComment, { commentSchema } from "../../domains/comment";
+import container from "../../inversify.config";
+import IAuthService from "../../services/IAuthService";
+import TYPES from "../../services/types";
 
 interface ISinglePostPage {}
 
 export default function SinglePostPage(props: ISinglePostPage) {
   const location = useLocation();
 
-  const id = useMemo(() => location.pathname.split('/')[2], [
+  const id = useMemo(() => location.pathname.split("/")[2], [
     location.pathname,
   ]);
 
@@ -28,11 +28,11 @@ export default function SinglePostPage(props: ISinglePostPage) {
   const { read } = usePost({ doUseList: false });
   const { data: comments, store } = useComment(id);
 
-  const initialPost = useMemo(() => ({ body: '', title: '' }), []);
+  const initialPost = useMemo(() => ({ body: "", title: "" }), []);
   const [post, setPost] = useState<domainPayload<IPost>>(initialPost);
 
   const initialComment = useMemo<domainPayload<IComment>>(
-    () => ({ postId: parseInt(id, 10), body: '', name, email }),
+    () => ({ postId: parseInt(id, 10), body: "", name, email }),
     [email, id, name]
   );
 

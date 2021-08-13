@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { StylesProvider } from '@material-ui/core';
-import BasePage, { ILink } from './components/BasePage';
-import ROUTES, { IRoute, routeEnum } from './routes';
-import { IUserContextValue, UserContextProvider } from './contexts/UserContext';
+import React, { useCallback } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { StylesProvider } from "@material-ui/core";
+import BasePage, { ILink } from "./components/BasePage";
+import ROUTES, { IRoute, routeEnum } from "./routes";
+import { IUserContextValue, UserContextProvider } from "./contexts/UserContext";
 
 function App() {
   function getLinks(text: string, route: IRoute) {
@@ -14,15 +14,15 @@ function App() {
   }
 
   const getRouteLinks = (isAuthenticated: boolean): ILink[] => [
-    getLinks('Todo', ROUTES.todos),
+    getLinks("Todo", ROUTES.todos),
     ...(!isAuthenticated
-      ? [getLinks('Home', ROUTES.home), getLinks('Login', ROUTES.login)]
+      ? [getLinks("Home", ROUTES.home), getLinks("Login", ROUTES.login)]
       : []),
     ...(isAuthenticated
       ? [
-          getLinks('Home', ROUTES.homeUser),
-          getLinks('Post', ROUTES.post),
-          getLinks('Logout', ROUTES.logout),
+          getLinks("Home", ROUTES.homeUser),
+          getLinks("Post", ROUTES.post),
+          getLinks("Logout", ROUTES.logout),
         ]
       : []),
   ];

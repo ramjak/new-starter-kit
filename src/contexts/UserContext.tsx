@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useMemo, useState } from 'react';
-import container from '../inversify.config';
-import IAuthService from '../services/IAuthService';
-import TYPES from '../services/types';
+import React, { createContext, useContext, useMemo, useState } from "react";
+import container from "../inversify.config";
+import IAuthService from "../services/IAuthService";
+import TYPES from "../services/types";
 
 export interface IUser {
   username: string;
@@ -10,9 +10,9 @@ export interface IUser {
 }
 
 const defaultUserValue = {
-  username: '',
-  token: '',
-  email: '',
+  username: "",
+  token: "",
+  email: "",
 };
 
 export interface IUserContextValue {
@@ -23,7 +23,7 @@ export interface IUserContextValue {
 const userContext = createContext<IUserContextValue>({
   userData: defaultUserValue,
   setUserData(): void {
-    console.log('setUserData');
+    console.log("setUserData");
   },
 });
 
@@ -42,7 +42,7 @@ export const UserContextProvider: React.FC = ({ children }) => {
 
   return (
     <userContext.Provider value={value}>
-      {typeof children === 'function' ? children(value) : children}
+      {typeof children === "function" ? children(value) : children}
     </userContext.Provider>
   );
 };

@@ -1,11 +1,11 @@
-import axios from 'axios';
-import { Dispatch, SetStateAction } from 'react';
-import container from '../inversify.config';
-import TYPES from '../services/types';
+import axios from "axios";
+import { Dispatch, SetStateAction } from "react";
+import container from "../inversify.config";
+import TYPES from "../services/types";
 import IRequestService, {
   requestMethodEnum,
-} from '../services/IRequestService';
-import { IDomainData } from './domainHooksType';
+} from "../services/IRequestService";
+import { IDomainData } from "./domainHooksType";
 
 export interface ICancelable {
   cancel(reason: string): void;
@@ -32,7 +32,7 @@ export default function createRequest<Data>(
     setInfo((pState) => ({
       ...pState,
       isLoading: true,
-      errorMessage: '',
+      errorMessage: "",
     }));
     const source = addSource(ongoingRequestSources);
     const requestService = container.get<IRequestService>(TYPES.RequestService);
@@ -68,7 +68,7 @@ export default function createRequest<Data>(
           errorMessage: e?.message,
         }));
         // tslint:disable-next-line no-console
-        console.error(`an error happened:${  e?.message}`);
+        console.error(`an error happened:${e?.message}`);
       }
       throw e;
     }

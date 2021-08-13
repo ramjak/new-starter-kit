@@ -1,14 +1,14 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import queryStringEncode from 'query-string-encode';
-import { inject, injectable } from 'inversify';
-import IAuthService from './IAuthService';
+import axios, { AxiosRequestConfig } from "axios";
+import queryStringEncode from "query-string-encode";
+import { inject, injectable } from "inversify";
+import IAuthService from "./IAuthService";
 import IRequestService, {
   IPayload,
   IPostRequestOptions,
   IRequestOptions,
   requestMethodEnum,
-} from './IRequestService';
-import TYPES from './types';
+} from "./IRequestService";
+import TYPES from "./types";
 
 @injectable()
 export default class RequestService implements IRequestService {
@@ -18,19 +18,19 @@ export default class RequestService implements IRequestService {
 
   private static async setUpHeaders(options?: IPostRequestOptions) {
     const headers: HeadersInit = {
-      Accept: 'application/json',
+      Accept: "application/json",
     };
 
     if (options) {
       if (!options.doWithFormData) {
-        headers['Content-Type'] = 'application/json';
+        headers["Content-Type"] = "application/json";
       }
 
-      if (typeof options.doSendAuth === 'boolean') {
+      if (typeof options.doSendAuth === "boolean") {
         try {
           // headers.Authorization = this.authService.getToken();
         } catch (e) {
-          throw new Error('No auth data found');
+          throw new Error("No auth data found");
         }
       }
     }

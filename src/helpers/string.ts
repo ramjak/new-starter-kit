@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from "lodash";
 
 export const sentenceCase = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);

@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import createRequest, { ICancelable } from './createRequest';
-import { camelToSnakeKeys } from '../helpers/string';
-import domainHooksType, { IDomainData } from './domainHooksType';
-import { requestMethodEnum } from '../services/IRequestService';
-import IComment from '../domains/comment';
+import { useCallback, useEffect, useRef, useState } from "react";
+import createRequest, { ICancelable } from "./createRequest";
+import { camelToSnakeKeys } from "../helpers/string";
+import domainHooksType, { IDomainData } from "./domainHooksType";
+import { requestMethodEnum } from "../services/IRequestService";
+import IComment from "../domains/comment";
 
 const identityFunc = (I: any) => I;
 
@@ -21,7 +21,7 @@ const useComment: useCommentType = (userId, options = { doUseList: true }) => {
 
   const [info, setInfo] = useState<IDomainData<IComment>>({
     data: [],
-    errorMessage: '',
+    errorMessage: "",
     isLoading: false,
     total: 0,
   });
@@ -49,9 +49,9 @@ const useComment: useCommentType = (userId, options = { doUseList: true }) => {
     const newMeta = camelToSnakeKeys(meta);
     const rawMetaQs = Object.keys(newMeta).reduce(
       (acc, key) => `${acc}${key}=${newMeta[key]}&`,
-      ''
+      ""
     );
-    const metaQs = rawMetaQs.replace(/&$/, '');
+    const metaQs = rawMetaQs.replace(/&$/, "");
 
     return request(`?${metaQs}`, requestMethodEnum.GET, {
       doHaveToStored: true,
@@ -99,7 +99,7 @@ const useComment: useCommentType = (userId, options = { doUseList: true }) => {
     const currentSources = ongoingRequestSources.current;
     return () =>
       currentSources.forEach((source) =>
-        source.cancel('Cancelling in cleanup')
+        source.cancel("Cancelling in cleanup")
       );
   }, [getAll]);
 

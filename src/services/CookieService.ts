@@ -1,6 +1,6 @@
-import esCookie from 'es-cookie';
-import { injectable } from 'inversify';
-import IPersistentStorage, { IStorageOptions } from './IPersistentStorage';
+import esCookie from "es-cookie";
+import { injectable } from "inversify";
+import IPersistentStorage, { IStorageOptions } from "./IPersistentStorage";
 
 @injectable()
 export default class CookieService implements IPersistentStorage {

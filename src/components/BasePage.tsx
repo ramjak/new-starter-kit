@@ -1,17 +1,17 @@
-import React from 'react';
-import {AppBar, Card, Button, Toolbar, Typography} from "@material-ui/core";
+import React from "react";
+import { AppBar, Card, Button, Toolbar, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import styles from "./BasePage.module.scss";
 import logo from "../logo.svg";
 
 export interface ILink {
-  text: string,
-  link: string
+  text: string;
+  link: string;
 }
 
 interface IBasePage {
-  children: React.ReactNode,
-  topNavLinks: ILink[]
+  children: React.ReactNode;
+  topNavLinks: ILink[];
 }
 
 function BasePage(props: IBasePage) {
@@ -23,7 +23,7 @@ function BasePage(props: IBasePage) {
           <Typography variant="h6" className={styles.appTitle}>
             Sample App
           </Typography>
-          {topNavLinks.map(nav => (
+          {topNavLinks.map((nav) => (
             <Button key={nav.link} component={Link} to={nav.link}>
               {nav.text}
             </Button>
@@ -32,9 +32,7 @@ function BasePage(props: IBasePage) {
       </AppBar>
       <header className={styles.AppHeader}>
         <img src={logo} className={styles.AppLogo} alt="logo" />
-        <Card className={styles.WrapperCard}>
-          {children}
-        </Card>
+        <Card className={styles.WrapperCard}>{children}</Card>
       </header>
     </div>
   );

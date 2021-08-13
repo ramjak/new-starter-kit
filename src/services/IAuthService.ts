@@ -1,4 +1,4 @@
-import { IUser } from '../contexts/UserContext';
+import { IUser } from "../contexts/UserContext";
 
 export default interface IAuthService {
   isLoading: boolean;

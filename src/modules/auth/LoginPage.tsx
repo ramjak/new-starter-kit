@@ -1,10 +1,10 @@
-import { Button, Input } from '@material-ui/core';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import container from '../../inversify.config';
-import TYPES from '../../services/types';
-import IAuthService from '../../services/IAuthService';
-import ROUTES, { useNavigateTo } from '../../routes';
-import { useUserContext } from '../../contexts/UserContext';
+import { Button, Input } from "@material-ui/core";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import container from "../../inversify.config";
+import TYPES from "../../services/types";
+import IAuthService from "../../services/IAuthService";
+import ROUTES, { useNavigateTo } from "../../routes";
+import { useUserContext } from "../../contexts/UserContext";
 
 interface ILoginPage {}
 
@@ -14,7 +14,7 @@ interface ICredential {
 }
 
 function LoginPage(props: ILoginPage) {
-  const initValue: ICredential = { password: '', username: '' };
+  const initValue: ICredential = { password: "", username: "" };
   const [value, setValue] = useState<ICredential>(initValue);
   const authService = container.get<IAuthService>(TYPES.AuthService);
   const navigateTo = useNavigateTo();
@@ -48,7 +48,7 @@ function LoginPage(props: ILoginPage) {
         fullWidth={true}
         value={value.username}
         onChange={onChangeUsername}
-      />{' '}
+      />{" "}
       <br />
       <Input
         type="password"
@@ -56,7 +56,7 @@ function LoginPage(props: ILoginPage) {
         fullWidth={true}
         value={value.password}
         onChange={onChangePassword}
-      />{' '}
+      />{" "}
       <br />
       <Button type="submit" variant="outlined" fullWidth={true} color="primary">
         Log in

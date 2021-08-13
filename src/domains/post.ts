@@ -1,4 +1,4 @@
-import { Asserts, object, string } from 'yup';
+import { Asserts, object, string } from "yup";
 
 export const postSchema = object({
   title: string().max(255).required(),
@@ -8,4 +8,4 @@ export const postSchema = object({
 export default interface IPost extends Asserts<typeof postSchema> {
   userId: number;
   id: number;
-};
+}

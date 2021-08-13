@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import createRequest, { ICancelable } from './createRequest';
-import { camelToSnakeKeys } from '../helpers/string';
-import domainHooksType, { IDomainData } from './domainHooksType';
-import { requestMethodEnum } from '../services/IRequestService';
-import IPost from '../domains/post';
+import { useCallback, useEffect, useRef, useState } from "react";
+import createRequest, { ICancelable } from "./createRequest";
+import { camelToSnakeKeys } from "../helpers/string";
+import domainHooksType, { IDomainData } from "./domainHooksType";
+import { requestMethodEnum } from "../services/IRequestService";
+import IPost from "../domains/post";
 
 const identityFunc = (I: any) => I;
 type usePostType = domainHooksType<IPost, any>;
@@ -16,7 +16,7 @@ const usePost: usePostType = (options = { doUseList: true }) => {
 
   const [info, setInfo] = useState<IDomainData<IPost>>({
     data: [],
-    errorMessage: '',
+    errorMessage: "",
     isLoading: false,
     total: 0,
   });
@@ -25,7 +25,7 @@ const usePost: usePostType = (options = { doUseList: true }) => {
   const ongoingRequestSources = useRef<ICancelable[]>([]);
 
   const request = useCallback(
-    createRequest('/posts', ongoingRequestSources.current, setInfo, (res) => {
+    createRequest("/posts", ongoingRequestSources.current, setInfo, (res) => {
       return res?.map(options.inboundMapper || identityFunc);
     }),
     []
@@ -39,9 +39,9 @@ const usePost: usePostType = (options = { doUseList: true }) => {
     const newMeta = camelToSnakeKeys(meta);
     const rawMetaQs = Object.keys(newMeta).reduce(
       (acc, key) => `${acc}${key}=${newMeta[key]}&`,
-      ''
+      ""
     );
-    const metaQs = rawMetaQs.replace(/&$/, '');
+    const metaQs = rawMetaQs.replace(/&$/, "");
 
     return request(`?${metaQs}`, requestMethodEnum.GET, {
       doHaveToStored: true,
@@ -89,7 +89,7 @@ const usePost: usePostType = (options = { doUseList: true }) => {
     getAll();
     return () =>
       currentSources.forEach((source) =>
-        source.cancel('Cancelling in cleanup')
+        source.cancel("Cancelling in cleanup")
       );
   }, [getAll]);
 

@@ -1,4 +1,4 @@
-import { Asserts, object, string } from 'yup';
+import { Asserts, object, string } from "yup";
 
 export const commentSchema = object({
   name: string().max(255).required(),

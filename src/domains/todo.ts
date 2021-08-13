@@ -1,4 +1,4 @@
-import { Asserts, boolean, object, string } from 'yup';
+import { Asserts, boolean, object, string } from "yup";
 
 const todoSchema = object({
   task: string().required(),

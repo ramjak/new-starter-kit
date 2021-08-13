@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Button, TextField } from '@material-ui/core';
-import { useLocation } from 'react-router-dom';
-import { Formik, Form, Field, FormikHelpers } from 'formik';
-import ROUTES, { useNavigateTo } from '../../routes';
-import usePost from '../../domainHooks/usePost';
-import IPost, { postSchema } from '../../domains/post';
-import { domainPayload } from '../../domainHooks/domainHooksType';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Button, TextField } from "@material-ui/core";
+import { useLocation } from "react-router-dom";
+import { Formik, Form, Field, FormikHelpers } from "formik";
+import ROUTES, { useNavigateTo } from "../../routes";
+import usePost from "../../domainHooks/usePost";
+import IPost, { postSchema } from "../../domains/post";
+import { domainPayload } from "../../domainHooks/domainHooksType";
 
 interface ISetPostPage {}
 
@@ -14,12 +14,12 @@ function SetPostPage(props: ISetPostPage) {
   const navigateTo = useNavigateTo();
   const { read, store, update } = usePost({ doUseList: false });
 
-  const initialPost = useMemo(() => ({ body: '', title: '' }), []);
+  const initialPost = useMemo(() => ({ body: "", title: "" }), []);
   const [post, setPost] = useState<domainPayload<IPost>>(initialPost);
 
   useEffect(() => {
-    const id = location.pathname.split('/')[2];
-    if (id !== 'create') {
+    const id = location.pathname.split("/")[2];
+    if (id !== "create") {
       read(id).then((currentPost) => {
         setPost(currentPost);
       });
@@ -39,7 +39,7 @@ function SetPostPage(props: ISetPostPage) {
         await store(values);
         helper.resetForm();
       } else {
-        const id = location.pathname.split('/')[2];
+        const id = location.pathname.split("/")[2];
         update(values, id);
         navigateTo(ROUTES.post);
       }
@@ -50,7 +50,7 @@ function SetPostPage(props: ISetPostPage) {
 
   return (
     <main>
-      <h1>{isCreate ? 'Create' : 'Update'} Post</h1>
+      <h1>{isCreate ? "Create" : "Update"} Post</h1>
       <Formik
         initialValues={post}
         enableReinitialize={true}

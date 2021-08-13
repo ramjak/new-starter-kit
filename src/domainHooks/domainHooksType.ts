@@ -15,7 +15,7 @@ interface ICrudHooks<D> {
   destroy(id?: string): Promise<unknown>;
 }
 
-export type domainPayload<D> = Omit<D, 'id' | 'userId' | 'timestamp'>;
+export type domainPayload<D> = Omit<D, "id" | "userId" | "timestamp">;
 
 type domainHooksType<D, T> = (options?: {
   id?: string | number;
