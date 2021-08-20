@@ -20,7 +20,19 @@ export interface IRoute {
   type: routeEnum;
 }
 
-const ROUTES: Record<string, IRoute> = {
+export interface IRouteParams {
+  todos: undefined;
+  home: undefined;
+  login: undefined;
+  homeUser: undefined;
+  createPost: undefined;
+  editSinglePost: { id: string };
+  viewSinglePost: { id: string };
+  post: undefined;
+  logout: undefined;
+}
+
+const ROUTES: Record<keyof IRouteParams, IRoute> = {
   todos: { path: "/todos", component: TodoPage, type: routeEnum.FREE },
   home: {
     path: "/",
