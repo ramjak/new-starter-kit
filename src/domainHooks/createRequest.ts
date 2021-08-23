@@ -59,7 +59,6 @@ export default function createRequest<Data>(
       return res;
     } catch (e) {
       if (axios.isCancel(e)) {
-        // tslint:disable-next-line no-console
         console.log(`request cancelled:${e.message}`);
       } else {
         setInfo((pState) => ({
@@ -67,7 +66,6 @@ export default function createRequest<Data>(
           isLoading: false,
           errorMessage: e?.message,
         }));
-        // tslint:disable-next-line no-console
         console.error(`an error happened:${e?.message}`);
       }
       throw e;

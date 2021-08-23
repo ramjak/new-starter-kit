@@ -84,7 +84,6 @@ const ROUTES: Record<keyof IRouteParams, IRoute> = {
 const getPath = (route: IRoute, ...params: string[] | number[]) => {
   const wildCards = route.path.match(/(:[^\n/]+)/g) || [];
   if (wildCards.length < params.length) {
-    // tslint:disable-next-line no-console
     console.warn(
       `You have too many params for ${
         route.path

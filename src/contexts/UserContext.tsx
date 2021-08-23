@@ -29,7 +29,6 @@ const userContext = createContext<IUserContextValue>({
 
 export const useUserContext = () => useContext(userContext);
 
-// tslint:disable-next-line variable-name
 export const UserContextProvider: React.FC = ({ children }) => {
   const authService = container.get<IAuthService>(TYPES.AuthService);
   const user = authService.getAuthData();

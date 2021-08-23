@@ -33,7 +33,6 @@ export default function SinglePostPage(props: ISinglePostPage) {
   );
 
   useEffect(() => {
-    // tslint:disable-next-line no-floating-promises
     read(id).then((currentPost) => {
       setPost(currentPost);
     });

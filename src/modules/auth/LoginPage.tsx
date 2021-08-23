@@ -23,7 +23,6 @@ function LoginPage(props: ILoginPage) {
   function login(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const token = `${value.username}-${value.password}`;
-    // tslint:disable-next-line no-floating-promises
     authService.login(token);
     setUserData({
       token,
