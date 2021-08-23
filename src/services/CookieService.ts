@@ -1,4 +1,4 @@
-import esCookie from "es-cookie";
+import * as esCookie from "es-cookie";
 import { injectable } from "inversify";
 import IPersistentStorage, { IStorageOptions } from "./IPersistentStorage";
 
