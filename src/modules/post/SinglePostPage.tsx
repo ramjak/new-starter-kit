@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core";
 import { Field, Form, Formik } from "formik";
 import { FormikHelpers } from "formik/dist/types";
@@ -12,15 +11,12 @@ import IComment, { commentSchema } from "../../domains/comment";
 import container from "../../inversify.config";
 import IAuthService from "../../services/IAuthService";
 import TYPES from "../../services/types";
+import { IRouteParams, useParams } from "../../routes";
 
 interface ISinglePostPage {}
 
 export default function SinglePostPage(props: ISinglePostPage) {
-  const location = useLocation();
-
-  const id = useMemo(() => location.pathname.split("/")[2], [
-    location.pathname,
-  ]);
+  const { id } = useParams<IRouteParams["viewSinglePost"]>();
 
   const authData = container.get<IAuthService>(TYPES.AuthService).getAuthData();
   const { username: name, email } = authData!;
@@ -41,7 +37,7 @@ export default function SinglePostPage(props: ISinglePostPage) {
     read(id).then((currentPost) => {
       setPost(currentPost);
     });
-  }, [location.pathname, read, id]);
+  }, [read, id]);
 
   const submit = useCallback(
     async (

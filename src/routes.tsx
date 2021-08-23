@@ -1,5 +1,9 @@
 import React, { useCallback } from "react";
-import { useHistory, Link as RouterLink } from "react-router-dom";
+import {
+  useHistory,
+  Link as RouterLink,
+  useRouteMatch,
+} from "react-router-dom";
 import TodoPage from "./modules/todo";
 import LoginPage from "./modules/auth/LoginPage";
 import Logout from "./modules/auth/Logout";
@@ -108,6 +112,11 @@ export const useNavigateTo = () => {
     },
     [history]
   );
+};
+
+export const useParams = <T,>() => {
+  const { params } = useRouteMatch<T>();
+  return params;
 };
 
 interface ILink {
