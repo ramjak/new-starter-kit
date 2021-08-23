@@ -112,5 +112,6 @@ module.exports = {
     "react/jsx-props-no-spreading": "off",
     "no-plusplus": "warn",
     "@typescript-eslint/no-empty-function": "off",
+    "prefer-destructuring": "off",
   },
 };
