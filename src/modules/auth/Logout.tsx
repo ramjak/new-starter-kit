@@ -8,7 +8,7 @@ import IAuthService from "../../services/IAuthService";
 
 interface ILogout {}
 
-function Logout(props: ILogout) {
+const Logout = () => {
   const { setUserData } = useUserContext();
   const authService = container.get<IAuthService>(TYPES.AuthService);
 
@@ -16,6 +16,6 @@ function Logout(props: ILogout) {
   authService.logout();
 
   return <Redirect to={ROUTES.home.path} />;
-}
+};
 
 export default Logout;

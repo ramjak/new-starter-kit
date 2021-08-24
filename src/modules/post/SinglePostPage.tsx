@@ -15,7 +15,7 @@ import { IRouteParams, useParams } from "../../routes";
 
 interface ISinglePostPage {}
 
-export default function SinglePostPage(props: ISinglePostPage) {
+const SinglePostPage = () => {
   const { id } = useParams<IRouteParams["viewSinglePost"]>();
 
   const authData = container.get<IAuthService>(TYPES.AuthService).getAuthData();
@@ -93,4 +93,6 @@ export default function SinglePostPage(props: ISinglePostPage) {
       </section>
     </article>
   );
-}
+};
+
+export default SinglePostPage;

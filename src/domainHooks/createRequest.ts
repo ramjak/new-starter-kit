@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import container from "../inversify.config";
 import TYPES from "../services/types";
 import IRequestService, {
+  IPayload,
   requestMethodEnum,
 } from "../services/IRequestService";
 import { IDomainData } from "./domainHooksType";
@@ -18,16 +19,23 @@ const addSource = (ongoingRequestSources: ICancelable[]) => {
   return source;
 };
 
+interface ICreateRequestOptions<Data> {
+  cb?: (data: Data[]) => unknown;
+  payload?: IPayload;
+  doHaveToStored?: boolean;
+}
+
 export default function createRequest<Data>(
   baseDomainUrl: string,
   ongoingRequestSources: ICancelable[],
   setInfo: Dispatch<SetStateAction<IDomainData<Data>>>,
-  mapper: (originalObj: any) => Data
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mapper: (originalObj: any) => Data[]
 ) {
   return async (
     url: string,
     type: requestMethodEnum,
-    { cb, payload, doHaveToStored }: any = {}
+    { cb, payload, doHaveToStored }: ICreateRequestOptions<Data> = {}
   ) => {
     setInfo((pState) => ({
       ...pState,
@@ -46,15 +54,24 @@ export default function createRequest<Data>(
       );
       // if request canceled, why it is not throwing any error tho
       if (res) {
-        const mappedData = doHaveToStored && mapper(res);
-        setInfo((pState) => ({
-          ...pState,
-          isLoading: false,
-          ...(doHaveToStored && { data: mappedData }),
-        }));
-        ongoingRequestSources.filter((src) => src !== source);
-        cb && cb(res.data);
+        if (doHaveToStored) {
+          const mappedData = mapper(res);
+          setInfo((pState) => ({
+            ...pState,
+            isLoading: false,
+            data: mappedData,
+          }));
+          cb && cb(mappedData);
+        } else {
+          setInfo((pState) => ({
+            ...pState,
+            isLoading: false,
+          }));
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          cb && cb(res as any);
+        }
       }
+      ongoingRequestSources.filter((src) => src !== source);
 
       return res;
     } catch (e) {

@@ -8,15 +8,9 @@ import ROUTES, { useNavigateTo } from "../../routes";
 
 interface IPostPage {}
 
-function PostPage(props: IPostPage) {
+const PostPage = () => {
   const { data, destroy } = usePost();
   const navigateTo = useNavigateTo();
-
-  // useEffect(() => {
-  //   const currentTitle = document.title;
-  //   document.title = 'PostPage';
-  //   return () => { document.title = currentTitle };
-  // }, []);
 
   const goToCreatePostPage = useCallback(() => {
     navigateTo(ROUTES.createPost);
@@ -39,6 +33,6 @@ function PostPage(props: IPostPage) {
       ))}
     </main>
   );
-}
+};
 
 export default PostPage;

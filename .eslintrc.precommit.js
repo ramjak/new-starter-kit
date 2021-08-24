@@ -48,5 +48,6 @@ module.exports = {
     "lines-between-class-members": "warn",
     "prefer-template": "warn",
     "@typescript-eslint/no-empty-function": "warn",
+    "react/require-default-props": "off",
   },
 };

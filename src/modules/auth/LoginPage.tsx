@@ -13,7 +13,7 @@ interface ICredential {
   password: string;
 }
 
-function LoginPage(props: ILoginPage) {
+const LoginPage = () => {
   const initValue: ICredential = { password: "", username: "" };
   const [value, setValue] = useState<ICredential>(initValue);
   const authService = container.get<IAuthService>(TYPES.AuthService);
@@ -62,6 +62,6 @@ function LoginPage(props: ILoginPage) {
       </Button>
     </form>
   );
-}
+};
 
 export default LoginPage;

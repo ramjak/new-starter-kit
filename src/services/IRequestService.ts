@@ -3,7 +3,7 @@ interface IUrlParam {
 }
 
 export interface IPayload {
-  [extraProps: string]: any;
+  [extraProps: string]: string | Blob;
 }
 
 export interface IRequestOptions {
@@ -23,12 +23,16 @@ export enum requestMethodEnum {
 }
 
 export default interface IRequestService {
-  request(
+  request<Res>(
     method: requestMethodEnum,
     path: string,
-    payload: IPayload,
+    payload?: IPayload,
     requestOptions?: IPostRequestOptions
-  ): Promise<any>;
-  get(path: string, options?: IRequestOptions): any;
-  post(path: string, payload: IPayload, options?: IPostRequestOptions): any;
+  ): Promise<Res>;
+  get<Res>(path: string, options?: IRequestOptions): Promise<Res>;
+  post<Res>(
+    path: string,
+    payload: IPayload,
+    options?: IPostRequestOptions
+  ): Promise<Res>;
 }

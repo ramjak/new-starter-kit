@@ -3,6 +3,7 @@ import {
   useHistory,
   Link as RouterLink,
   useRouteMatch,
+  RouteComponentProps,
 } from "react-router-dom";
 import TodoPage from "./modules/todo";
 import LoginPage from "./modules/auth/LoginPage";
@@ -20,7 +21,7 @@ export enum routeEnum {
 export interface IRoute {
   path: string;
   exact?: boolean;
-  component: React.ComponentType<any>;
+  component: React.FC<RouteComponentProps>;
   type: routeEnum;
 }
 
@@ -121,9 +122,10 @@ export const useParams = <T,>() => {
 interface ILink {
   route: IRoute;
   params?: string[] | number[];
+  children: React.ReactNode;
 }
 
-export const Link: React.FC<ILink> = (props) => {
+export const Link = (props: ILink) => {
   return (
     <RouterLink to={getPath(props.route, ...props.params)}>
       {props.children}

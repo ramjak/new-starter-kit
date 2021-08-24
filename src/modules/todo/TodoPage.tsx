@@ -25,29 +25,27 @@ const todos: ITodo[] = [
   { task: "Sample testing", isDone: false },
 ];
 
-function TodoPage(props: ITodoPage) {
-  return (
-    <>
-      <Typography gutterBottom={true} variant="h5" component="h2">
-        Todo List:
-      </Typography>
-      <List component="nav">
-        {todos.map((todo) => (
-          <ListItem key={todo.task} role={undefined} dense={true}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                defaultChecked={todo.isDone}
-                tabIndex={-1}
-                disableRipple={true}
-              />
-            </ListItemIcon>
-            <ListItemText primary={todo.task} />
-          </ListItem>
-        ))}
-      </List>
-    </>
-  );
-}
+const TodoPage = () => (
+  <>
+    <Typography gutterBottom={true} variant="h5" component="h2">
+      Todo List:
+    </Typography>
+    <List component="nav">
+      {todos.map((todo) => (
+        <ListItem key={todo.task} role={undefined} dense={true}>
+          <ListItemIcon>
+            <Checkbox
+              edge="start"
+              defaultChecked={todo.isDone}
+              tabIndex={-1}
+              disableRipple={true}
+            />
+          </ListItemIcon>
+          <ListItemText primary={todo.task} />
+        </ListItem>
+      ))}
+    </List>
+  </>
+);
 
 export default TodoPage;

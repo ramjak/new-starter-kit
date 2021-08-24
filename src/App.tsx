@@ -41,7 +41,11 @@ function App() {
             key={route.path}
             exact={route.exact}
             path={route.path}
-            render={(props) => <route.component {...props} />}
+            // eslint-disable-next-line react/jsx-no-bind
+            render={(props) => {
+              const Page = route.component;
+              return <Page {...props} />;
+            }}
           />
         )),
     []

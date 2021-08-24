@@ -8,7 +8,7 @@ import { domainPayload } from "../../domainHooks/domainHooksType";
 
 interface ISetPostPage {}
 
-function SetPostPage(props: ISetPostPage) {
+const SetPostPage = () => {
   const params = useParams<
     IRouteParams["createPost"] | IRouteParams["editSinglePost"]
   >();
@@ -88,6 +88,6 @@ function SetPostPage(props: ISetPostPage) {
       </Formik>
     </main>
   );
-}
+};
 
 export default SetPostPage;

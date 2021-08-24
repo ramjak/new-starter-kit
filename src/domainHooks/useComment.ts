@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import createRequest, { ICancelable } from "./createRequest";
 import { camelToSnakeKeys } from "../helpers/string";
 import domainHooksType, { IDomainData } from "./domainHooksType";
 import { requestMethodEnum } from "../services/IRequestService";
 import IComment from "../domains/comment";
 
-const identityFunc = (I: any) => I;
+const identityFunc = (I: unknown) => I;
 
-type useCommentType = domainHooksType<IComment, any> extends (
+type useCommentType = domainHooksType<IComment, unknown> extends (
   ...p: infer U
 ) => infer R
   ? (userId: number | string, ...p: U) => R
@@ -29,16 +29,17 @@ const useComment: useCommentType = (userId, options = { doUseList: true }) => {
 
   const ongoingRequestSources = useRef<ICancelable[]>([]);
 
-  const request = useCallback(
-    createRequest(
-      `/posts/${userId}/comments`,
-      ongoingRequestSources.current,
-      setInfo,
-      (res) => {
-        return res?.map(options.inboundMapper || identityFunc);
-      }
-    ),
-    []
+  const request = useMemo(
+    () =>
+      createRequest<IComment>(
+        `/posts/${userId}/comments`,
+        ongoingRequestSources.current,
+        setInfo,
+        (res) => {
+          return res?.map(options.inboundMapper || identityFunc);
+        }
+      ),
+    [options.inboundMapper, userId]
   );
 
   const getAll = useCallback(() => {
@@ -71,7 +72,7 @@ const useComment: useCommentType = (userId, options = { doUseList: true }) => {
     async (id) => {
       const res = await request(`/${id}`, requestMethodEnum.GET);
       // console.log({res})
-      return res;
+      return res as IComment;
     },
     [request]
   );

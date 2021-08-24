@@ -38,7 +38,7 @@ export default class RequestService implements IRequestService {
     return headers;
   }
 
-  public async request(
+  public async request<Res>(
     method: requestMethodEnum,
     path: string,
     payload: IPayload,
@@ -70,26 +70,26 @@ export default class RequestService implements IRequestService {
       }
     }
 
-    const res = await axios.request(requestConfig);
-    // console.log({ res,  requestConfig });
+    const res = await axios.request<Res>(requestConfig);
+    console.log({ res, requestConfig });
     const json = res.data;
     if (res.status < 200 || res.status > 299) {
       // todo: should create a new error type
-      throw Error(json.error.message || "Something's bad happened");
+      throw Error("Something's bad happened");
     }
 
     return json;
   }
 
-  public get(path: string, options?: IRequestOptions): Promise<any> {
+  public get<Res>(path: string, options?: IRequestOptions): Promise<Res> {
     return this.request(requestMethodEnum.GET, path, {}, options);
   }
 
-  public post(
+  public post<Res>(
     path: string,
     payload: IPayload,
     options: IPostRequestOptions
-  ): Promise<any> {
+  ): Promise<Res> {
     return this.request(requestMethodEnum.POST, path, payload, options);
   }
 }

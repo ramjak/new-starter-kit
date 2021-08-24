@@ -7,7 +7,7 @@ import ROUTES, { Link, useNavigateTo } from "../../routes";
 
 interface ISinglePost {
   item: IPost;
-  destroy(id: string): Promise<any>;
+  destroy(id: string): Promise<unknown>;
 }
 
 export default function SinglePost({ item, destroy }: ISinglePost) {

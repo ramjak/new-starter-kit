@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import createRequest, { ICancelable } from "./createRequest";
 import { camelToSnakeKeys } from "../helpers/string";
 import domainHooksType, { IDomainData } from "./domainHooksType";
 import { requestMethodEnum } from "../services/IRequestService";
 import IPost from "../domains/post";
 
-const identityFunc = (I: any) => I;
-type usePostType = domainHooksType<IPost, any>;
+const identityFunc = (I: unknown) => I;
+type usePostType = domainHooksType<IPost, unknown>;
 
 const usePost: usePostType = (options = { doUseList: true }) => {
   const defaultMeta = {
@@ -24,11 +24,17 @@ const usePost: usePostType = (options = { doUseList: true }) => {
 
   const ongoingRequestSources = useRef<ICancelable[]>([]);
 
-  const request = useCallback(
-    createRequest("/posts", ongoingRequestSources.current, setInfo, (res) => {
-      return res?.map(options.inboundMapper || identityFunc);
-    }),
-    []
+  const request = useMemo(
+    () =>
+      createRequest<IPost>(
+        "/posts",
+        ongoingRequestSources.current,
+        setInfo,
+        (res) => {
+          return res?.map(options.inboundMapper || identityFunc);
+        }
+      ),
+    [options.inboundMapper]
   );
 
   const getAll = useCallback(() => {
@@ -61,7 +67,7 @@ const usePost: usePostType = (options = { doUseList: true }) => {
     async (id) => {
       const res = await request(`/${id}`, requestMethodEnum.GET);
       // console.log({res})
-      return res;
+      return res as IPost;
     },
     [request]
   );

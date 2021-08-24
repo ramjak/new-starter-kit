@@ -113,5 +113,6 @@ module.exports = {
     "no-plusplus": "warn",
     "@typescript-eslint/no-empty-function": "off",
     "prefer-destructuring": "off",
+    "react/require-default-props": "off",
   },
 };
