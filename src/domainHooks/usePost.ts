@@ -39,7 +39,7 @@ const usePost: usePostType = (options = { doUseList: true }) => {
 
   const getAll = useCallback(() => {
     if (!options.doUseList) {
-      return;
+      return Promise.resolve();
     }
 
     const newMeta = camelToSnakeKeys(meta);
@@ -57,7 +57,9 @@ const usePost: usePostType = (options = { doUseList: true }) => {
   const store = useCallback(
     async (payload) => {
       const res = await request(`/`, requestMethodEnum.POST, { payload });
-      getAll();
+      getAll().catch((e) => {
+        throw e;
+      });
       return res;
     },
     [request, getAll]
@@ -75,7 +77,9 @@ const usePost: usePostType = (options = { doUseList: true }) => {
   const destroy = useCallback(
     async (id) => {
       const res = await request(`/${id}`, requestMethodEnum.DELETE);
-      getAll();
+      getAll().catch((e) => {
+        throw e;
+      });
       return res;
     },
     [request, getAll]
@@ -84,7 +88,9 @@ const usePost: usePostType = (options = { doUseList: true }) => {
   const update = useCallback(
     async (payload, id) => {
       const res = await request(`/${id}`, requestMethodEnum.PUT, { payload });
-      getAll();
+      getAll().catch((e) => {
+        throw e;
+      });
       return res;
     },
     [request, getAll]
@@ -92,7 +98,9 @@ const usePost: usePostType = (options = { doUseList: true }) => {
 
   useEffect(() => {
     const currentSources = ongoingRequestSources.current;
-    getAll();
+    getAll().catch((e) => {
+      throw e;
+    });
     return () =>
       currentSources.forEach((source) =>
         source.cancel("Cancelling in cleanup")

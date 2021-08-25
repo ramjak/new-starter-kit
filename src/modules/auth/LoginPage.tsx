@@ -23,7 +23,9 @@ const LoginPage = ({}: ILoginPage) => {
   function login(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const token = `${value.username}-${value.password}`;
-    authService.login(token);
+    authService.login(token).catch((err) => {
+      throw err;
+    });
     setUserData({
       token,
       username: value.username,

@@ -13,7 +13,9 @@ const Logout = ({}: ILogout) => {
   const authService = container.get<IAuthService>(TYPES.AuthService);
 
   setUserData({ token: "", username: "", email: "" });
-  authService.logout();
+  authService.logout().catch((e) => {
+    throw e;
+  });
 
   return <Redirect to={ROUTES.home.path} />;
 };

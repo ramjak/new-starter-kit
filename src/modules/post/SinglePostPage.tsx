@@ -19,6 +19,7 @@ const SinglePostPage = ({}: ISinglePostPage) => {
   const { id } = useParams<IRouteParams["viewSinglePost"]>();
 
   const authData = container.get<IAuthService>(TYPES.AuthService).getAuthData();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { username: name, email } = authData!;
 
   const { read } = usePost({ doUseList: false });
@@ -33,9 +34,13 @@ const SinglePostPage = ({}: ISinglePostPage) => {
   );
 
   useEffect(() => {
-    read(id).then((currentPost) => {
-      setPost(currentPost);
-    });
+    read(id)
+      .then((currentPost) => {
+        setPost(currentPost);
+      })
+      .catch((e) => {
+        throw e;
+      });
   }, [read, id]);
 
   const submit = useCallback(

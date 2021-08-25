@@ -22,9 +22,11 @@ const SetPostPage = ({}: ISetPostPage) => {
 
   useEffect(() => {
     if (idParam) {
-      read(idParam).then((currentPost) => {
-        setPost(currentPost);
-      });
+      read(idParam)
+        .then((currentPost) => {
+          setPost(currentPost);
+        })
+        .catch((e) => console.error(e));
     }
   }, [idParam, read]);
 
@@ -34,7 +36,9 @@ const SetPostPage = ({}: ISetPostPage) => {
       helper: FormikHelpers<domainPayload<IPost>>
     ) => {
       if (idParam) {
-        update(values, idParam);
+        update(values, idParam).catch((e) => {
+          throw e;
+        });
         navigateTo(ROUTES.post);
       } else {
         await store(values);

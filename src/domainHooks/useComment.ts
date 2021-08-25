@@ -44,7 +44,7 @@ const useComment: useCommentType = (userId, options = { doUseList: true }) => {
 
   const getAll = useCallback(() => {
     if (!options.doUseList) {
-      return;
+      return Promise.resolve();
     }
 
     const newMeta = camelToSnakeKeys(meta);
@@ -62,7 +62,9 @@ const useComment: useCommentType = (userId, options = { doUseList: true }) => {
   const store = useCallback(
     async (payload) => {
       const res = await request(`/`, requestMethodEnum.POST, { payload });
-      getAll();
+      getAll().catch((e) => {
+        throw e;
+      });
       return res;
     },
     [request, getAll]
@@ -80,7 +82,9 @@ const useComment: useCommentType = (userId, options = { doUseList: true }) => {
   const destroy = useCallback(
     async (id) => {
       const res = await request(`/${id}`, requestMethodEnum.DELETE);
-      getAll();
+      getAll().catch((e) => {
+        throw e;
+      });
       return res;
     },
     [request, getAll]
@@ -89,14 +93,18 @@ const useComment: useCommentType = (userId, options = { doUseList: true }) => {
   const update = useCallback(
     async (payload, id) => {
       const res = await request(`/${id}`, requestMethodEnum.PUT, { payload });
-      getAll();
+      getAll().catch((e) => {
+        throw e;
+      });
       return res;
     },
     [request, getAll]
   );
 
   useEffect(() => {
-    getAll();
+    getAll().catch((e) => {
+      throw e;
+    });
     const currentSources = ongoingRequestSources.current;
     return () =>
       currentSources.forEach((source) =>
