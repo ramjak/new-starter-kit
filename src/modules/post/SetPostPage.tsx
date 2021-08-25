@@ -8,7 +8,7 @@ import { domainPayload } from "../../domainHooks/domainHooksType";
 
 interface ISetPostPage {}
 
-const SetPostPage = () => {
+const SetPostPage = ({}: ISetPostPage) => {
   const params = useParams<
     IRouteParams["createPost"] | IRouteParams["editSinglePost"]
   >();

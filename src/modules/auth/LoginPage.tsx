@@ -13,7 +13,7 @@ interface ICredential {
   password: string;
 }
 
-const LoginPage = () => {
+const LoginPage = ({}: ILoginPage) => {
   const initValue: ICredential = { password: "", username: "" };
   const [value, setValue] = useState<ICredential>(initValue);
   const authService = container.get<IAuthService>(TYPES.AuthService);

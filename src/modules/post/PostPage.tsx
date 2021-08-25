@@ -8,7 +8,7 @@ import ROUTES, { useNavigateTo } from "../../routes";
 
 interface IPostPage {}
 
-const PostPage = () => {
+const PostPage = ({}: IPostPage) => {
   const { data, destroy } = usePost();
   const navigateTo = useNavigateTo();
 

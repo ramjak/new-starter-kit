@@ -25,7 +25,7 @@ const todos: ITodo[] = [
   { task: "Sample testing", isDone: false },
 ];
 
-const TodoPage = () => (
+const TodoPage = ({}: ITodoPage) => (
   <>
     <Typography gutterBottom={true} variant="h5" component="h2">
       Todo List:

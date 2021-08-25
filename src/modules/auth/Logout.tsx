@@ -8,7 +8,7 @@ import IAuthService from "../../services/IAuthService";
 
 interface ILogout {}
 
-const Logout = () => {
+const Logout = ({}: ILogout) => {
   const { setUserData } = useUserContext();
   const authService = container.get<IAuthService>(TYPES.AuthService);
 

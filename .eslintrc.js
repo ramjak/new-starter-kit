@@ -114,5 +114,6 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "off",
     "prefer-destructuring": "off",
     "react/require-default-props": "off",
+    "no-empty-pattern": "off",
   },
 };

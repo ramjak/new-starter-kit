@@ -15,7 +15,7 @@ import { IRouteParams, useParams } from "../../routes";
 
 interface ISinglePostPage {}
 
-const SinglePostPage = () => {
+const SinglePostPage = ({}: ISinglePostPage) => {
   const { id } = useParams<IRouteParams["viewSinglePost"]>();
 
   const authData = container.get<IAuthService>(TYPES.AuthService).getAuthData();
