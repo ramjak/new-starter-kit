@@ -8,19 +8,16 @@ import { domainPayload } from "../../domainHooks/domainHooksType";
 import useComment from "../../domainHooks/useComment";
 import SingleComment from "./SingleComment";
 import IComment, { commentSchema } from "../../domains/comment";
-import container from "../../inversify.config";
-import IAuthService from "../../services/IAuthService";
-import TYPES from "../../services/types";
 import { IRouteParams, useParams } from "../../routes";
+import { useUserContext } from "../../contexts/UserContext";
 
 interface ISinglePostPage {}
 
 const SinglePostPage = ({}: ISinglePostPage) => {
   const { id } = useParams<IRouteParams["viewSinglePost"]>();
 
-  const authData = container.get<IAuthService>(TYPES.AuthService).getAuthData();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const { username: name, email } = authData!;
+  const { userData } = useUserContext();
+  const { username: name, email } = userData;
 
   const { read } = usePost({ doUseList: false });
   const { data: comments, store } = useComment(id);
