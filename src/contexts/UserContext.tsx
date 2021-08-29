@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import container from "../inversify.config";
 import IAuthService from "../services/IAuthService";
 import TYPES from "../services/types";
@@ -17,13 +23,17 @@ const defaultUserValue = {
 
 export interface IUserContextValue {
   userData: IUser;
-  setUserData(user: IUser): void;
+  login(user: IUser): void;
+  logout(): void;
 }
 
 const userContext = createContext<IUserContextValue>({
   userData: defaultUserValue,
-  setUserData(): void {
-    console.log("setUserData");
+  login(): void {
+    console.log("login");
+  },
+  logout(): void {
+    console.log("logout");
   },
 });
 
@@ -31,12 +41,33 @@ export const useUserContext = () => useContext(userContext);
 
 export const UserContextProvider: React.FC = ({ children }) => {
   const authService = container.get<IAuthService>(TYPES.AuthService);
-  const user = authService.getAuthData();
+  const currentUser = authService.getAuthData();
 
-  const [userData, setUserData] = useState<IUser>(user || defaultUserValue);
-  const value = useMemo(() => ({ userData, setUserData }), [
+  const [userData, setUserData] = useState<IUser>(
+    currentUser || defaultUserValue
+  );
+
+  const login = useCallback(
+    (user) => {
+      authService.login(user.token).catch((err) => {
+        throw err;
+      });
+      setUserData(user);
+    },
+    [authService]
+  );
+
+  const logout = useCallback(() => {
+    authService.logout().catch((err) => {
+      throw err;
+    });
+    setUserData({ token: "", username: "", email: "" });
+  }, [authService]);
+
+  const value = useMemo(() => ({ userData, login, logout }), [
+    login,
+    logout,
     userData,
-    setUserData,
   ]);
 
   return (

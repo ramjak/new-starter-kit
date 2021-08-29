@@ -1,8 +1,5 @@
 import { Button, Input } from "@material-ui/core";
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import container from "../../inversify.config";
-import TYPES from "../../services/types";
-import IAuthService from "../../services/IAuthService";
 import ROUTES, { useNavigateTo } from "../../routes";
 import { useUserContext } from "../../contexts/UserContext";
 
@@ -16,17 +13,13 @@ interface ICredential {
 const LoginPage = ({}: ILoginPage) => {
   const initValue: ICredential = { password: "", username: "" };
   const [value, setValue] = useState<ICredential>(initValue);
-  const authService = container.get<IAuthService>(TYPES.AuthService);
   const navigateTo = useNavigateTo();
-  const { setUserData } = useUserContext();
+  const { login } = useUserContext();
 
-  function login(e: FormEvent<HTMLFormElement>) {
+  function submitLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const token = `${value.username}-${value.password}`;
-    authService.login(token).catch((err) => {
-      throw err;
-    });
-    setUserData({
+    login({
       token,
       username: value.username,
       email: `${value.username}@email.com`,
@@ -43,7 +36,7 @@ const LoginPage = ({}: ILoginPage) => {
   }
 
   return (
-    <form onSubmit={login}>
+    <form onSubmit={submitLogin}>
       <Input
         placeholder="Username"
         fullWidth={true}
