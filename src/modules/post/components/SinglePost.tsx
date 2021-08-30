@@ -2,8 +2,8 @@ import React, { useCallback } from "react";
 import { Button } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
 import styles from "./SinglePost.module.scss";
-import IPost from "../../domains/post";
-import ROUTES, { Link, useNavigateTo } from "../../routes";
+import IPost from "../../../domains/post";
+import ROUTES, { Link, useNavigateTo } from "../../../routes";
 
 interface ISinglePost {
   item: IPost;

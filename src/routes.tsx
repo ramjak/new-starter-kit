@@ -5,12 +5,12 @@ import {
   useRouteMatch,
   RouteComponentProps,
 } from "react-router-dom";
-import TodoPage from "./modules/todo";
+import TodoPage from "./modules/todo/TodoPage";
 import LoginPage from "./modules/auth/LoginPage";
 import Logout from "./modules/auth/Logout";
-import PostPage from "./modules/post";
-import SetPostPage from "./modules/post/SetPostPage";
-import SinglePostPage from "./modules/post/SinglePostPage";
+import PostPage from "./modules/post/pages/PostPage";
+import SetPostPage from "./modules/post/pages/SetPostPage";
+import SinglePostPage from "./modules/post/pages/SinglePostPage";
 
 export enum routeEnum {
   FREE = "FREE",

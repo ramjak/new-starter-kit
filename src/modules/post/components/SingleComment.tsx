@@ -1,5 +1,5 @@
 import React from "react";
-import IComment from "../../domains/comment";
+import IComment from "../../../domains/comment";
 
 interface ISingleComment {
   comment: IComment;

@@ -1,10 +1,14 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { Formik, Form, Field, FormikHelpers } from "formik";
-import ROUTES, { IRouteParams, useNavigateTo, useParams } from "../../routes";
-import usePost from "../../domainHooks/usePost";
-import IPost, { postSchema } from "../../domains/post";
-import { domainPayload } from "../../domainHooks/domainHooksType";
+import ROUTES, {
+  IRouteParams,
+  useNavigateTo,
+  useParams,
+} from "../../../routes";
+import usePost from "../../../domainHooks/usePost";
+import IPost, { postSchema } from "../../../domains/post";
+import { domainPayload } from "../../../domainHooks/domainHooksType";
 
 interface ISetPostPage {}
 

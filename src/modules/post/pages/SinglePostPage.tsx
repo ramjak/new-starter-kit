@@ -2,14 +2,14 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { Field, Form, Formik } from "formik";
 import { FormikHelpers } from "formik/dist/types";
-import IPost from "../../domains/post";
-import usePost from "../../domainHooks/usePost";
-import { domainPayload } from "../../domainHooks/domainHooksType";
-import useComment from "../../domainHooks/useComment";
-import SingleComment from "./SingleComment";
-import IComment, { commentSchema } from "../../domains/comment";
-import { IRouteParams, useParams } from "../../routes";
-import { useUserContext } from "../../contexts/UserContext";
+import IPost from "../../../domains/post";
+import usePost from "../../../domainHooks/usePost";
+import { domainPayload } from "../../../domainHooks/domainHooksType";
+import useComment from "../../../domainHooks/useComment";
+import SingleComment from "../components/SingleComment";
+import IComment, { commentSchema } from "../../../domains/comment";
+import { IRouteParams, useParams } from "../../../routes";
+import { useUserContext } from "../../../contexts/UserContext";
 
 interface ISinglePostPage {}
 
