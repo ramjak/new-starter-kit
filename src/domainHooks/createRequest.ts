@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Dispatch, SetStateAction } from "react";
 import container from "../inversify.config";
 import TYPES from "../services/types";
@@ -75,17 +75,25 @@ export default function createRequest<Data>(
 
       return res;
     } catch (e) {
-      if (axios.isCancel(e)) {
-        console.log(`request cancelled:${e.message}`);
-      } else {
-        setInfo((pState) => ({
-          ...pState,
-          isLoading: false,
-          errorMessage: e?.message,
-        }));
-        console.error(`an error happened:${e?.message}`);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const isAxiosError = (error: any): error is AxiosError =>
+        error.isAxiosError === true;
+
+      if (isAxiosError(e)) {
+        if (axios.isCancel(e)) {
+          console.log(`request cancelled:${e?.message}`);
+        } else {
+          setInfo((pState) => ({
+            ...pState,
+            isLoading: false,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            errorMessage: e?.message,
+          }));
+          console.error(`an error happened:${e?.message}`);
+        }
+        throw e;
       }
-      throw e;
     }
   };
 }
