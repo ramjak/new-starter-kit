@@ -17,10 +17,10 @@ export default function SinglePost({ item, destroy }: ISinglePost) {
     () => navigateTo(ROUTES.editSinglePost, item.id),
     [navigateTo, item]
   );
-  const destroyThis = useCallback(() => destroy(item.id.toString()), [
-    destroy,
-    item,
-  ]);
+  const destroyThis = useCallback(
+    () => destroy(item.id.toString()),
+    [destroy, item]
+  );
 
   return (
     <article className={styles.post}>

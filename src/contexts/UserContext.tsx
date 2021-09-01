@@ -64,11 +64,10 @@ export const UserContextProvider: React.FC = ({ children }) => {
     setUserData({ token: "", username: "", email: "" });
   }, [authService]);
 
-  const value = useMemo(() => ({ userData, login, logout }), [
-    login,
-    logout,
-    userData,
-  ]);
+  const value = useMemo(
+    () => ({ userData, login, logout }),
+    [login, logout, userData]
+  );
 
   return (
     <userContext.Provider value={value}>
