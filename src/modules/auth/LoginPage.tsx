@@ -1,5 +1,5 @@
 import { Button, Input } from "@material-ui/core";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import ROUTES, { useNavigateTo } from "../../routes";
 import { useUserContext } from "../../contexts/UserContext";
 
@@ -16,24 +16,33 @@ const LoginPage = ({}: ILoginPage) => {
   const navigateTo = useNavigateTo();
   const { login } = useUserContext();
 
-  function submitLogin(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const token = `${value.username}-${value.password}`;
-    login({
-      token,
-      username: value.username,
-      email: `${value.username}@email.com`,
-    });
-    navigateTo(ROUTES.home);
-  }
+  const submitLogin = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const token = `${value.username}-${value.password}`;
+      login({
+        token,
+        username: value.username,
+        email: `${value.username}@email.com`,
+      });
+      navigateTo(ROUTES.home);
+    },
+    [login, navigateTo, value.password, value.username]
+  );
 
-  function onChangeUsername(event: ChangeEvent<HTMLInputElement>) {
-    setValue((state) => ({ ...state, username: event.target.value }));
-  }
+  const onChangeUsername = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setValue((state) => ({ ...state, username: event.target.value }));
+    },
+    []
+  );
 
-  function onChangePassword(event: ChangeEvent<HTMLInputElement>) {
-    setValue((state) => ({ ...state, password: event.target.value }));
-  }
+  const onChangePassword = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setValue((state) => ({ ...state, password: event.target.value }));
+    },
+    []
+  );
 
   return (
     <form onSubmit={submitLogin}>
