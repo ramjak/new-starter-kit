@@ -21,18 +21,13 @@ export default class RequestService implements IRequestService {
       Accept: "application/json",
     };
 
-    if (options) {
-      if (!options.doWithFormData) {
-        headers["Content-Type"] = "application/json";
-      }
+    const token = this.authService.getAuthData()?.token;
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
 
-      if (typeof options.doSendAuth === "boolean") {
-        try {
-          // headers.Authorization = this.authService.getToken();
-        } catch (e) {
-          throw new Error("No auth data found");
-        }
-      }
+    if (!(options && options.doWithFormData)) {
+      headers["Content-Type"] = "application/json";
     }
 
     return headers;
@@ -44,19 +39,18 @@ export default class RequestService implements IRequestService {
     payload: IPayload,
     requestOptions?: IPostRequestOptions
   ) {
-    const headers = RequestService.setUpHeaders(requestOptions);
-    // console.log({payload});
+    const headers = await this.setUpHeaders(requestOptions);
 
     const requestConfig: AxiosRequestConfig = {
       data: payload,
       headers,
       method,
-      url: `${this.baseUrl}${path}`,
+      url: `${this.baseUrl || ""}${path}`,
     };
 
     if (requestOptions) {
       if (requestOptions.queryObj) {
-        requestConfig.url += queryStringEncode(requestOptions);
+        requestConfig.url += `?${queryStringEncode(requestOptions.queryObj)}`;
       }
 
       if (payload && requestOptions.doWithFormData) {
