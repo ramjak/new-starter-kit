@@ -115,5 +115,6 @@ module.exports = {
     "prefer-destructuring": "off",
     "react/require-default-props": "off",
     "no-empty-pattern": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "**/*.spec.tsx"]}]
   },
 };
