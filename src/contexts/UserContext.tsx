@@ -49,7 +49,7 @@ export const UserContextProvider: React.FC = ({ children }) => {
 
   const login = useCallback(
     (user) => {
-      authService.login(user.token).catch((err) => {
+      authService.login(user).catch((err) => {
         throw err;
       });
       setUserData(user);
@@ -64,10 +64,11 @@ export const UserContextProvider: React.FC = ({ children }) => {
     setUserData({ token: "", username: "", email: "" });
   }, [authService]);
 
-  const value = useMemo(
-    () => ({ userData, login, logout }),
-    [login, logout, userData]
-  );
+  const value = useMemo(() => ({ userData, login, logout }), [
+    login,
+    logout,
+    userData,
+  ]);
 
   return (
     <userContext.Provider value={value}>

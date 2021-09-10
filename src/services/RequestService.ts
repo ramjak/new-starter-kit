@@ -1,4 +1,3 @@
-import axios, { AxiosRequestConfig } from "axios";
 import queryStringEncode from "query-string-encode";
 import { inject, injectable } from "inversify";
 import IAuthService from "./IAuthService";
@@ -6,17 +5,22 @@ import IRequestService, {
   IPayload,
   IPostRequestOptions,
   IRequestOptions,
-  requestMethodEnum,
 } from "./IRequestService";
 import TYPES from "./types";
+import IHttpService, {
+  IHttpServiceConfig,
+  requestMethodEnum,
+} from "./IHttpService";
 
 @injectable()
 export default class RequestService implements IRequestService {
   @inject(TYPES.AuthService) private readonly authService: IAuthService;
 
+  @inject(TYPES.HttpService) private readonly httpService: IHttpService;
+
   private readonly baseUrl = process.env.REACT_APP_BASE_API_URL;
 
-  private static async setUpHeaders(options?: IPostRequestOptions) {
+  private async setUpHeaders(options?: IPostRequestOptions) {
     const headers: HeadersInit = {
       Accept: "application/json",
     };
@@ -41,7 +45,7 @@ export default class RequestService implements IRequestService {
   ) {
     const headers = await this.setUpHeaders(requestOptions);
 
-    const requestConfig: AxiosRequestConfig = {
+    const requestConfig: IHttpServiceConfig = {
       data: payload,
       headers,
       method,
@@ -64,7 +68,7 @@ export default class RequestService implements IRequestService {
       }
     }
 
-    const res = await axios.request<Res>(requestConfig);
+    const res = await this.httpService.request<Res>(requestConfig);
     console.log({ res, requestConfig });
     const json = res.data;
     if (res.status < 200 || res.status > 299) {

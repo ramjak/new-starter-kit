@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import createRequest, { ICancelable } from "./createRequest";
 import { camelToSnakeKeys } from "../helpers/string";
 import domainHooksType, { IDomainData } from "./domainHooksType";
-import { requestMethodEnum } from "../services/IRequestService";
 import IPost from "../domains/post";
+import { requestMethodEnum } from "../services/IHttpService";
 
 const identityFunc = (I: unknown) => I;
 type usePostType = domainHooksType<IPost, unknown>;
