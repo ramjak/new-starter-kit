@@ -3,38 +3,48 @@ import { Button } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
 import styles from "./SinglePost.module.scss";
 import IPost from "../../../domains/post";
-import ROUTES, { Link, useNavigateTo } from "../../../routes";
 
 interface ISinglePost {
   item: IPost;
+  view(id: string): unknown;
+  edit(id: string): unknown;
   destroy(id: string): Promise<unknown>;
 }
 
-export default function SinglePost({ item, destroy }: ISinglePost) {
-  const navigateTo = useNavigateTo();
-
-  const navigateToEditForm = useCallback(
-    () => navigateTo(ROUTES.editSinglePost, item.id),
-    [navigateTo, item]
-  );
-  const destroyThis = useCallback(
-    () => destroy(item.id.toString()),
-    [destroy, item]
-  );
+export default function SinglePost({ item, destroy, edit, view }: ISinglePost) {
+  const viewThis = useCallback(() => view(item.id.toString()), [view, item.id]);
+  const editThis = useCallback(() => edit(item.id.toString()), [edit, item.id]);
+  const destroyThis = useCallback(() => destroy(item.id.toString()), [
+    destroy,
+    item,
+  ]);
 
   return (
     <article className={styles.post}>
-      <h2>
-        <Link route={ROUTES.viewSinglePost} params={[item.id]}>
-          {item.title}
-        </Link>
-      </h2>
+      <Button
+        className={styles.title}
+        color="primary"
+        onClick={viewThis}
+        data-testid="view-btn"
+      >
+        {item.title}
+      </Button>
       <section title="action buttons" className={styles.actions}>
-        <Button variant="outlined" color="default" onClick={navigateToEditForm}>
+        <Button
+          variant="outlined"
+          color="default"
+          onClick={editThis}
+          data-testid="edit-btn"
+        >
           <Edit />
         </Button>
         &nbsp;
-        <Button variant="contained" color="secondary" onClick={destroyThis}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={destroyThis}
+          data-testid="destroy-btn"
+        >
           <Delete />
         </Button>
       </section>

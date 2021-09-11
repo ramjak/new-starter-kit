@@ -2,9 +2,21 @@
   border-bottom: #282c34 1px solid;
   position: relative;
 
-  h2 {
-    margin-left: 4em;
-    margin-right: 4em;
+  .title {
+    padding-left: 4em;
+    padding-right: 4em;
+    display: inline-block;
+    font-size: 45px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+    line-height: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    &:hover {
+      background: inherit;
+      filter: brightness(1.2);
+    }
   }
   .actions {
     position: absolute;
