@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render SingleComment 1`] = `
+Array [
+  <article>
+    <p>
+      laudantium enim quasi est quidem magnam voluptate ipsam eos tempora quo necessitatibus dolor quam autem quasi reiciendis et nam sapiente accusantium
+    </p>
+    <address>
+      By:
+       
+      <a
+        href="mailto:test@email.com"
+        rel="author"
+      >
+        poster
+      </a>
+    </address>
+  </article>,
+  <hr />,
+]
+`;
