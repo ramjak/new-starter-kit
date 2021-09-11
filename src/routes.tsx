@@ -21,7 +21,8 @@ export enum routeEnum {
 export interface IRoute {
   path: string;
   exact?: boolean;
-  component: React.FC<RouteComponentProps>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component: React.FC<RouteComponentProps & any>;
   type: routeEnum;
 }
 

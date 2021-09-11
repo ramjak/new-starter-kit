@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPage render correctly at first load 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <WithStyles(ForwardRef(Input))
+    fullWidth={true}
+    onChange={[Function]}
+    placeholder="Username"
+    value=""
+  />
+   
+  <br />
+  <WithStyles(ForwardRef(Input))
+    fullWidth={true}
+    onChange={[Function]}
+    placeholder="Password"
+    type="password"
+    value=""
+  />
+   
+  <br />
+  <WithStyles(ForwardRef(Button))
+    color="primary"
+    fullWidth={true}
+    name="submit"
+    type="submit"
+    variant="outlined"
+  >
+    Log in
+  </WithStyles(ForwardRef(Button))>
+</form>
+`;

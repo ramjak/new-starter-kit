@@ -5,7 +5,8 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import container from "../inversify.config";
+import { interfaces } from "inversify";
+import realContainer from "../inversify.config";
 import IAuthService from "../services/IAuthService";
 import TYPES from "../services/types";
 
@@ -27,7 +28,7 @@ export interface IUserContextValue {
   logout(): void;
 }
 
-const userContext = createContext<IUserContextValue>({
+export const UserContext = createContext<IUserContextValue>({
   userData: defaultUserValue,
   login(): void {
     console.log("login");
@@ -37,9 +38,14 @@ const userContext = createContext<IUserContextValue>({
   },
 });
 
-export const useUserContext = () => useContext(userContext);
+export const useUserContext = () => useContext(UserContext);
 
-export const UserContextProvider: React.FC = ({ children }) => {
+interface IUserContextProvider {
+  container?: interfaces.Container;
+}
+
+export const UserContextProvider: React.FC<IUserContextProvider> = (props) => {
+  const { children, container } = { container: realContainer, ...props };
   const authService = container.get<IAuthService>(TYPES.AuthService);
   const currentUser = authService.getAuthData();
 
@@ -71,8 +77,8 @@ export const UserContextProvider: React.FC = ({ children }) => {
   ]);
 
   return (
-    <userContext.Provider value={value}>
+    <UserContext.Provider value={value}>
       {typeof children === "function" ? children(value) : children}
-    </userContext.Provider>
+    </UserContext.Provider>
   );
 };

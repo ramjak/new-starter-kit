@@ -1,16 +1,20 @@
 import { Button, Input } from "@material-ui/core";
 import React, { ChangeEvent, FormEvent, useCallback, useState } from "react";
-import ROUTES, { useNavigateTo } from "../../routes";
+import ROUTES, { IRoute, useNavigateTo as useNT } from "../../routes";
 import { useUserContext } from "../../contexts/UserContext";
 
-interface ILoginPage {}
+interface ILoginPage {
+  // eslint-disable-next-line react/no-unused-prop-types
+  useNavigateTo?: () => (route: IRoute, ...params: string[] | number[]) => void;
+}
 
 interface ICredential {
   username: string;
   password: string;
 }
 
-const LoginPage = ({}: ILoginPage) => {
+const LoginPage = (props: ILoginPage) => {
+  const { useNavigateTo } = { useNavigateTo: useNT, ...props };
   const initValue: ICredential = { password: "", username: "" };
   const [value, setValue] = useState<ICredential>(initValue);
   const navigateTo = useNavigateTo();
@@ -61,7 +65,13 @@ const LoginPage = ({}: ILoginPage) => {
         onChange={onChangePassword}
       />{" "}
       <br />
-      <Button type="submit" variant="outlined" fullWidth={true} color="primary">
+      <Button
+        name="submit"
+        type="submit"
+        variant="outlined"
+        fullWidth={true}
+        color="primary"
+      >
         Log in
       </Button>
     </form>
