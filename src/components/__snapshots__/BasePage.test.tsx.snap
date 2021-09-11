@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render BasePage 1`] = `
+<div
+  className="App"
+>
+  <WithStyles(ForwardRef(AppBar))
+    position="static"
+  >
+    <WithStyles(ForwardRef(Toolbar))>
+      <WithStyles(ForwardRef(Typography))
+        className="appTitle"
+        variant="h6"
+      >
+        Sample App
+      </WithStyles(ForwardRef(Typography))>
+      <WithStyles(ForwardRef(Button))
+        component={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "innerRef": [Function],
+              "onClick": [Function],
+              "replace": [Function],
+              "target": [Function],
+              "to": [Function],
+            },
+            "render": [Function],
+          }
+        }
+        to="/"
+      >
+        Root
+      </WithStyles(ForwardRef(Button))>
+      <WithStyles(ForwardRef(Button))
+        component={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "innerRef": [Function],
+              "onClick": [Function],
+              "replace": [Function],
+              "target": [Function],
+              "to": [Function],
+            },
+            "render": [Function],
+          }
+        }
+        to="/test"
+      >
+        Test
+      </WithStyles(ForwardRef(Button))>
+    </WithStyles(ForwardRef(Toolbar))>
+  </WithStyles(ForwardRef(AppBar))>
+  <header
+    className="AppHeader"
+  >
+    <img
+      alt="logo"
+      className="AppLogo"
+      src="logo.svg"
+    />
+    <WithStyles(ForwardRef(Card))
+      className="WrapperCard"
+    >
+      children
+    </WithStyles(ForwardRef(Card))>
+  </header>
+</div>
+`;
