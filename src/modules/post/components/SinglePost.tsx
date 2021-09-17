@@ -26,6 +26,7 @@ export default function SinglePost({ item, destroy, edit, view }: ISinglePost) {
         color="primary"
         onClick={viewThis}
         data-testid="view-btn"
+        component="h2"
       >
         {item.title}
       </Button>
@@ -48,7 +49,7 @@ export default function SinglePost({ item, destroy, edit, view }: ISinglePost) {
           <Delete />
         </Button>
       </section>
-      <p>{item.body}</p>
+      <p data-testid="article-body">{item.body}</p>
     </article>
   );
 }

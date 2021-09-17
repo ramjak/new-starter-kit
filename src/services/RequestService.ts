@@ -69,7 +69,6 @@ export default class RequestService implements IRequestService {
     }
 
     const res = await this.httpService.request<Res>(requestConfig);
-    console.log({ res, requestConfig });
     const json = res.data;
     if (res.status < 200 || res.status > 299) {
       // todo: should create a new error type
@@ -86,8 +85,20 @@ export default class RequestService implements IRequestService {
   public post<Res>(
     path: string,
     payload: IPayload,
-    options: IPostRequestOptions
+    options?: IPostRequestOptions
   ): Promise<Res> {
     return this.request(requestMethodEnum.POST, path, payload, options);
+  }
+
+  public put<Res>(
+    path: string,
+    payload: IPayload,
+    options?: IPostRequestOptions
+  ): Promise<Res> {
+    return this.request(requestMethodEnum.PUT, path, payload, options);
+  }
+
+  public delete<Res>(path: string, options?: IRequestOptions): Promise<Res> {
+    return this.request(requestMethodEnum.DELETE, path, {}, options);
   }
 }

@@ -4,10 +4,10 @@ exports[`render SinglePost 1`] = `
 <article
   className="post"
 >
-  <button
+  <h2
+    aria-disabled={false}
     className="MuiButtonBase-root MuiButton-root MuiButton-text title MuiButton-textPrimary"
     data-testid="view-btn"
-    disabled={false}
     onBlur={[Function]}
     onClick={[Function]}
     onDragLeave={[Function]}
@@ -20,15 +20,15 @@ exports[`render SinglePost 1`] = `
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
     onTouchStart={[Function]}
+    role="button"
     tabIndex={0}
-    type="button"
   >
     <span
       className="MuiButton-label"
     >
       title
     </span>
-  </button>
+  </h2>
   <section
     className="actions"
     title="action buttons"
@@ -103,7 +103,9 @@ exports[`render SinglePost 1`] = `
       </span>
     </button>
   </section>
-  <p>
+  <p
+    data-testid="article-body"
+  >
     quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto
   </p>
 </article>

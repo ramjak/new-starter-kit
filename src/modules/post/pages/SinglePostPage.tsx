@@ -2,14 +2,15 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { Field, Form, Formik } from "formik";
 import { FormikHelpers } from "formik/dist/types";
-import IPost from "../../../domains/post";
-import usePost from "../../../domainHooks/usePost";
-import { domainPayload } from "../../../domainHooks/domainHooksType";
-import useComment from "../../../domainHooks/useComment";
+import { useInjection } from "inversify-react";
+import { IRawPost } from "../../../domains/post";
 import SingleComment from "../components/SingleComment";
-import IComment, { commentSchema } from "../../../domains/comment";
+import IComment, { commentSchema, IRawComment } from "../../../domains/comment";
 import { IRouteParams, useParams } from "../../../routes";
 import { useUserContext } from "../../../contexts/UserContext";
+import IPostRepository from "../../../repositories/IPostRepository";
+import TYPES from "../../../services/types";
+import ICommentRepository from "../../../repositories/ICommentRepository";
 
 interface ISinglePostPage {}
 
@@ -19,37 +20,46 @@ const SinglePostPage = ({}: ISinglePostPage) => {
   const { userData } = useUserContext();
   const { username: name, email } = userData;
 
-  const { read } = usePost({ doUseList: false });
-  const { data: comments, store } = useComment(id);
-
   const initialPost = useMemo(() => ({ body: "", title: "" }), []);
-  const [post, setPost] = useState<domainPayload<IPost>>(initialPost);
+  const [post, setPost] = useState<IRawPost>(initialPost);
+  const postRepository = useInjection<IPostRepository>(TYPES.PostRepository);
 
-  const initialComment = useMemo<domainPayload<IComment>>(
+  const [comments, setComments] = useState<IComment[]>([]);
+  const commentRepository = useInjection<ICommentRepository>(
+    TYPES.CommentRepository
+  );
+
+  const initialComment = useMemo<IRawComment>(
     () => ({ postId: parseInt(id, 10), body: "", name, email }),
     [email, id, name]
   );
 
   useEffect(() => {
-    read(id)
+    postRepository
+      .read(id)
       .then((currentPost) => {
         setPost(currentPost);
       })
       .catch((e) => {
         throw e;
       });
-  }, [read, id]);
+    commentRepository
+      .getAll(id)
+      .then((currentPost) => {
+        setComments(currentPost);
+      })
+      .catch((e) => {
+        throw e;
+      });
+  }, [postRepository, id, commentRepository]);
 
   const submit = useCallback(
-    async (
-      values: domainPayload<IComment>,
-      helper: FormikHelpers<domainPayload<IComment>>
-    ) => {
-      await store(values);
+    async (values: IRawComment, helper: FormikHelpers<IRawComment>) => {
+      await commentRepository.store(id, values);
       helper.resetForm();
       helper.setSubmitting(false);
     },
-    [store]
+    [commentRepository, id]
   );
 
   return (

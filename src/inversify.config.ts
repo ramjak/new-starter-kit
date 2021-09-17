@@ -8,18 +8,25 @@ import IPersistentStorage from "./services/IPersistentStorage";
 import IRequestService from "./services/IRequestService";
 import RequestService from "./services/RequestService";
 import IHttpService from "./services/IHttpService";
+import IPostRepository from "./repositories/IPostRepository";
+import PostRepository from "./repositories/PostRepository";
+import CommentRepository from "./repositories/CommentRepository";
+import ICommentRepository from "./repositories/ICommentRepository";
 
 const container = new Container();
 
 // infra block
 container.bind<IAuthService>(TYPES.AuthService).to(AuthService);
-// .inSingletonScope();
 container
   .bind<IPersistentStorage>(TYPES.PersistentService)
   .toConstantValue(esCookie);
-// .inSingletonScope();
 container.bind<IRequestService>(TYPES.RequestService).to(RequestService);
-// .inSingletonScope();
 container.bind<IHttpService>(TYPES.HttpService).toConstantValue(axios);
+
+// repository block
+container.bind<IPostRepository>(TYPES.PostRepository).to(PostRepository);
+container
+  .bind<ICommentRepository>(TYPES.CommentRepository)
+  .to(CommentRepository);
 
 export default container;

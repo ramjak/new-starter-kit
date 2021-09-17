@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import { Formik, Form, Field, FormikHelpers } from "formik";
+import { useInjection } from "inversify-react";
 import ROUTES, {
   IRouteParams,
   useNavigateTo,
   useParams,
 } from "../../../routes";
-import usePost from "../../../domainHooks/usePost";
-import IPost, { postSchema } from "../../../domains/post";
-import { domainPayload } from "../../../domainHooks/domainHooksType";
+import { IRawPost, postSchema } from "../../../domains/post";
+import TYPES from "../../../services/types";
+import IPostRepository from "../../../repositories/IPostRepository";
 
 interface ISetPostPage {}
 
@@ -17,40 +18,38 @@ const SetPostPage = ({}: ISetPostPage) => {
     IRouteParams["createPost"] | IRouteParams["editSinglePost"]
   >();
   const navigateTo = useNavigateTo();
-  const { read, store, update } = usePost({ doUseList: false });
+  const postRepository = useInjection<IPostRepository>(TYPES.PostRepository);
 
   const initialPost = useMemo(() => ({ body: "", title: "" }), []);
-  const [post, setPost] = useState<domainPayload<IPost>>(initialPost);
+  const [post, setPost] = useState<IRawPost>(initialPost);
 
   const idParam = useMemo(() => params?.id, [params?.id]);
 
   useEffect(() => {
     if (idParam) {
-      read(idParam)
+      postRepository
+        .read(idParam)
         .then((currentPost) => {
           setPost(currentPost);
         })
         .catch((e) => console.error(e));
     }
-  }, [idParam, read]);
+  }, [idParam, postRepository]);
 
   const submit = useCallback(
-    async (
-      values: domainPayload<IPost>,
-      helper: FormikHelpers<domainPayload<IPost>>
-    ) => {
+    async (values: IRawPost, helper: FormikHelpers<IRawPost>) => {
       if (idParam) {
-        update(values, idParam).catch((e) => {
+        postRepository.update(values, idParam).catch((e) => {
           throw e;
         });
         navigateTo(ROUTES.post);
       } else {
-        await store(values);
+        await postRepository.store(values);
         helper.resetForm();
       }
       helper.setSubmitting(false);
     },
-    [idParam, update, navigateTo, store]
+    [idParam, navigateTo, postRepository]
   );
 
   return (

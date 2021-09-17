@@ -1,3 +1,5 @@
+import { requestMethodEnum } from "./IHttpService";
+
 interface IUrlParam {
   [extraProps: string]: string;
 }
@@ -8,18 +10,10 @@ export interface IPayload {
 
 export interface IRequestOptions {
   queryObj?: IUrlParam;
-  doSendAuth?: boolean;
 }
 
 export interface IPostRequestOptions extends IRequestOptions {
   doWithFormData?: boolean;
-}
-
-export enum requestMethodEnum {
-  GET = "get",
-  POST = "post",
-  DELETE = "delete",
-  PUT = "put",
 }
 
 export default interface IRequestService {
@@ -35,4 +29,10 @@ export default interface IRequestService {
     payload: IPayload,
     options?: IPostRequestOptions
   ): Promise<Res>;
+  put<Res>(
+    path: string,
+    payload: IPayload,
+    options?: IPostRequestOptions
+  ): Promise<Res>;
+  delete<Res>(path: string, options?: IRequestOptions): Promise<Res>;
 }
