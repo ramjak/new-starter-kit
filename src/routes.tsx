@@ -86,7 +86,7 @@ const ROUTES: Record<keyof IRouteParams, IRoute> = {
 const getPath = (route: IRoute, ...params: string[] | number[]) => {
   const wildCards = route.path.match(/(:[^\n/]+)/g) || [];
   if (wildCards.length < params.length) {
-    console.warn(
+    throw new Error(
       `You have too many params for ${
         route.path
       }. Current params: ${params.join(",")}`
