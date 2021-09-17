@@ -1,9 +1,11 @@
 import React, { useCallback } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { StylesProvider } from "@material-ui/core";
+import { Provider } from "inversify-react";
 import BasePage, { ILink } from "./components/BasePage";
 import ROUTES, { IRoute, routeEnum } from "./routes";
 import { IUserContextValue, UserContextProvider } from "./contexts/UserContext";
+import container from "./inversify.config";
 
 function App() {
   function getLinks(text: string, route: IRoute) {
@@ -56,18 +58,20 @@ function App() {
   return (
     <BrowserRouter>
       <StylesProvider injectFirst={true}>
-        <UserContextProvider>
-          {({ userData }: IUserContextValue) => {
-            return (
-              <BasePage topNavLinks={getRouteLinks(!!userData.token)}>
-                <Switch>
-                  {getRoutes(!!userData.username)}
-                  <Route component={renderNotFound} />
-                </Switch>
-              </BasePage>
-            );
-          }}
-        </UserContextProvider>
+        <Provider container={container}>
+          <UserContextProvider>
+            {({ userData }: IUserContextValue) => {
+              return (
+                <BasePage topNavLinks={getRouteLinks(!!userData.token)}>
+                  <Switch>
+                    {getRoutes(!!userData.username)}
+                    <Route component={renderNotFound} />
+                  </Switch>
+                </BasePage>
+              );
+            }}
+          </UserContextProvider>
+        </Provider>
       </StylesProvider>
     </BrowserRouter>
   );
