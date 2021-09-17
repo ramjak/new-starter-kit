@@ -6,7 +6,9 @@ export const commentSchema = object({
   body: string().required(),
 }).required();
 
-export default interface IComment extends Asserts<typeof commentSchema> {
+export interface IRawComment extends Asserts<typeof commentSchema> {}
+
+export default interface IComment extends IRawComment {
   postId: number;
   id: number;
 }

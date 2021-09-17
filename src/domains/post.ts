@@ -5,7 +5,9 @@ export const postSchema = object({
   body: string().required(),
 });
 
-export default interface IPost extends Asserts<typeof postSchema> {
+export interface IRawPost extends Asserts<typeof postSchema> {}
+
+export default interface IPost extends IRawPost {
   userId: number;
   id: number;
 }
