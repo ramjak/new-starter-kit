@@ -16,10 +16,6 @@ export default class AuthService implements IAuthService {
 
   @inject(TYPES.PersistentService) private readonly storage: IPersistentStorage;
 
-  public errorMessage: string;
-
-  public isLoading: boolean;
-
   public logout() {
     (Object.keys(AuthService.AUTH_KEYS) as Array<
       keyof typeof AuthService.AUTH_KEYS
