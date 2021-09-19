@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+## Getting Started
+### Requirement:
+- Node ^8.11
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Running the App
+- run `yarn install` in the folder repository
+- run `yarn start` or `npm start` to start the app
+- open `localhost:3000` in a browser to open the web app
 
-## Available Scripts
+### Development
 
-In the project directory, you can run:
+The main goal of the current architecture is to increase maintainability, reusability, and adaptability of project components. So they can be used without React as the core. Overall architecture looks like this:
 
-### `yarn start`
+![Architecture Overview](./architecture.drawio.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Src Folder Structure
+```
+src/
+  /assets --- general assets of the project
+  /components --- reusable react components
+  /contexts --- react contexts for connecting to Application Service Layer
+  /domains --- domains models and services
+  /services --- application services, can connects application to Infrastucture
+  /helpers --- stateless helper, pure function only
+  /modules --- isolated ui folders, grouped by domain name
+  /repositories --- services for handling domain data
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### IoC container
+`inversify.js` is used to maintain this project dependency. Every service and repository need to be bound in [src/inversify.config.ts](src/inversify.config.ts). After that, they can be injected into other services and be used anywhere. For better testability, a UI component should call the container via `react-inversify` with `useInjection`.
 
-### `yarn test`
+#### .editorconfig
+This project using [.editorconfig](./.editorconfig) for various typing configurations. Be sure to use an editor which supports it.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Linter
+This project has 2 linter configurations: [one for development (.eslintrc.js)](.eslintrc.js) and [one for commit hook (.eslintrc.precommit.js)](.eslintrc.precommit.js) which inspect the working files before the files committed.
 
-### `yarn build`
+Development linter is less strict than the commit one. The main purpose of it is to help developers identify logical errors without disturbing them with unnecessary warnings of the experimental code which might not make it to the repository.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+On the other hand, the commit linter is there to enforce good coding practice and increase readability of the code to help other developers understand the code better.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+If your commit is cancelled because of a linter error, fix it and commit again. **Never force commit and skip the linter error unless in a critical situation**. Doing that will postpone the error to the next developer who will edit the code later. Discuss with the team if you think there is a rule which is not needed or obsolete.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Overwriting library files
+You can use the `\temp` folder for overwriting certain files in node_modules folder. By creating a file that has an exact name and relative path to node_modules. It will be replaced once you run the install command, `yarn install`.
