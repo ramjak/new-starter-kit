@@ -11,7 +11,7 @@
 
 The main goal of the current architecture is to increase maintainability, reusability, and adaptability of project components. So they can be used without React as the core. Overall architecture looks like this:
 
-![Architecture Overview](./architecture.drawio.png)
+![Architecture Overview](./architecture.png)
 
 #### Src Folder Structure
 ```
