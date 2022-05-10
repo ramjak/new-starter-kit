@@ -8,6 +8,8 @@ import IPersistentStorage from "./services/IPersistentStorage";
 import IRequestService from "./services/IRequestService";
 import RequestService from "./services/RequestService";
 import IHttpService from "./services/IHttpService";
+import GraphQLService from "./services/GraphQLService";
+import IGraphQLService from "./services/IGraphQLService";
 import IPostRepository from "./repositories/IPostRepository";
 import PostRepository from "./repositories/PostRepository";
 import CommentRepository from "./repositories/CommentRepository";
@@ -22,6 +24,10 @@ container
   .toConstantValue(esCookie);
 container.bind<IRequestService>(TYPES.RequestService).to(RequestService);
 container.bind<IHttpService>(TYPES.HttpService).toConstantValue(axios);
+container
+  .bind<IGraphQLService>(TYPES.GraphQLService)
+  .to(GraphQLService)
+  .inSingletonScope();
 
 // repository block
 container.bind<IPostRepository>(TYPES.PostRepository).to(PostRepository);
