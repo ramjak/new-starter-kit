@@ -34,7 +34,6 @@ const UserPage: React.FC<IUserPage> = () => {
 
   useEffect(() => {
     const unsubscribe = userRepository.subscribe((state) => {
-      console.log({ state });
       setUsers(state.data);
     });
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
