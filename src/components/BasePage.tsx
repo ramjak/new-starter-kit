@@ -24,16 +24,21 @@ function BasePage(props: IBasePage) {
             Sample App
           </Typography>
           {topNavLinks.map((nav) => (
-            <Button key={nav.link} component={Link} to={nav.link}>
+            <Button
+              key={nav.link}
+              component={Link}
+              to={nav.link}
+              className={styles.navButton}
+            >
               {nav.text}
             </Button>
           ))}
         </Toolbar>
       </AppBar>
-      <header className={styles.AppHeader}>
+      <div className={styles.contentWrapper}>
         <img src={logo} className={styles.AppLogo} alt="logo" />
         <Card className={styles.WrapperCard}>{children}</Card>
-      </header>
+      </div>
     </div>
   );
 }
