@@ -14,6 +14,8 @@ import IPostRepository from "./repositories/IPostRepository";
 import PostRepository from "./repositories/PostRepository";
 import CommentRepository from "./repositories/CommentRepository";
 import ICommentRepository from "./repositories/ICommentRepository";
+import IUserRepository from "./repositories/IUserRepository";
+import UserRepository from "./repositories/UserRepository";
 
 const container = new Container();
 
@@ -31,6 +33,7 @@ container
 
 // repository block
 container.bind<IPostRepository>(TYPES.PostRepository).to(PostRepository);
+container.bind<IUserRepository>(TYPES.UserRepository).to(UserRepository);
 container
   .bind<ICommentRepository>(TYPES.CommentRepository)
   .to(CommentRepository);

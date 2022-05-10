@@ -15,19 +15,23 @@ function App() {
     };
   }
 
-  const getRouteLinks = (isAuthenticated: boolean): ILink[] => [
-    getLinks("Todo", ROUTES.todos),
-    ...(!isAuthenticated
-      ? [getLinks("Home", ROUTES.home), getLinks("Login", ROUTES.login)]
-      : []),
-    ...(isAuthenticated
-      ? [
-          getLinks("Home", ROUTES.homeUser),
-          getLinks("Post", ROUTES.post),
-          getLinks("Logout", ROUTES.logout),
-        ]
-      : []),
-  ];
+  const getRouteLinks = useCallback(
+    (isAuthenticated: boolean): ILink[] => [
+      getLinks("Todo", ROUTES.todos),
+      ...(!isAuthenticated
+        ? [getLinks("Home", ROUTES.home), getLinks("Login", ROUTES.login)]
+        : []),
+      ...(isAuthenticated
+        ? [
+            getLinks("Home", ROUTES.homeUser),
+            getLinks("Post", ROUTES.post),
+            getLinks("User", ROUTES.user),
+            getLinks("Logout", ROUTES.logout),
+          ]
+        : []),
+    ],
+    []
+  );
 
   const getRoutes = useCallback(
     (isAuthed: boolean) =>
