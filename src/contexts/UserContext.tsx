@@ -1,10 +1,11 @@
-import React, {
+import {
   createContext,
   useCallback,
   useContext,
   useMemo,
   useState,
 } from "react";
+import * as React from "react";
 import { interfaces } from "inversify";
 import realContainer from "../inversify.config";
 import IAuthService from "../services/IAuthService";

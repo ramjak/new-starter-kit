@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import React from "react";
 import renderer from "react-test-renderer";
 import SingleComment from "./SingleComment";
 

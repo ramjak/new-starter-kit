@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import React from "react";
 import { Provider } from "inversify-react";
 import { Container } from "inversify";
 import renderer from "react-test-renderer";

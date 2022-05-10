@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { StylesProvider } from "@material-ui/core";
 import { Provider } from "inversify-react";

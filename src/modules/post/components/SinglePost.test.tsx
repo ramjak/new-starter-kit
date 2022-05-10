@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
 import "reflect-metadata";
-import React from "react";
 import renderer from "react-test-renderer";
 import { fireEvent, render } from "@testing-library/react";
 import SinglePost from "./SinglePost";

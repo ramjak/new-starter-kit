@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 import BasePage from "./BasePage";
 

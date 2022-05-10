@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { render } from "@testing-library/react";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import ROUTES, { useNavigateTo, useParams } from "../routes";

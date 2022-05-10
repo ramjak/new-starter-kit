@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { Button } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
 import styles from "./SinglePost.module.scss";

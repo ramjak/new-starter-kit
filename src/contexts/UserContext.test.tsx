@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import React from "react";
 import { render } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { IUserContextValue, UserContextProvider } from "./UserContext";

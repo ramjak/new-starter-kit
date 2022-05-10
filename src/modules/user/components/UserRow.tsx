@@ -1,6 +1,6 @@
 import { Button, TableCell, TableRow } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import IUser from "../../../domains/user";
 
 interface IUserRow {

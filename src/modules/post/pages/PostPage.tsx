@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { useInjection } from "inversify-react";

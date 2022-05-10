@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { AppBar, Card, Button, Toolbar, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import styles from "./BasePage.module.scss";

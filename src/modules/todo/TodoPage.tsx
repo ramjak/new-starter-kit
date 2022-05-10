@@ -6,7 +6,6 @@ import {
   ListItemText,
   Typography,
 } from "@material-ui/core";
-import React from "react";
 import ITodo from "../../domains/todo";
 
 interface ITodoPage {}
