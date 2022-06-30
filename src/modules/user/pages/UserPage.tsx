@@ -135,7 +135,9 @@ const UserPage: React.FC<IUserPage> = () => {
         >
           {({ errors, touched }) => (
             <Form>
-              <DialogTitle>Create new user</DialogTitle>
+              <DialogTitle>
+                {modalData?.name ? "Edit" : "Create new"} user
+              </DialogTitle>
               <Divider />
               <DialogContent>
                 <Field
@@ -171,13 +173,8 @@ const UserPage: React.FC<IUserPage> = () => {
                 <Button variant="text" color="default" onClick={resetModal}>
                   Cancel
                 </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  // onClick={handleClick}
-                  type="submit"
-                >
-                  Create
+                <Button variant="contained" color="primary" type="submit">
+                  {modalData?.name ? "Edit" : "Create"}
                 </Button>
               </DialogActions>
             </Form>
