@@ -13,6 +13,7 @@ import PostPage from "./modules/post/pages/PostPage";
 import SetPostPage from "./modules/post/pages/SetPostPage";
 import SinglePostPage from "./modules/post/pages/SinglePostPage";
 import UserPage from "./modules/user/pages/UserPage";
+import AdminPage from "./modules/admin/AdminPage";
 
 export enum routeEnum {
   FREE = "FREE",
@@ -37,6 +38,7 @@ export interface IRouteParams {
   editSinglePost: { id: string };
   viewSinglePost: { id: string };
   post: undefined;
+  admin: undefined;
   user: undefined;
   logout: undefined;
 }
@@ -79,6 +81,7 @@ const ROUTES: Record<keyof IRouteParams, IRoute> = {
   },
   post: { path: "/post", component: PostPage, type: routeEnum.AUTHED },
   user: { path: "/user", component: UserPage, type: routeEnum.AUTHED },
+  admin: { path: "/admin", component: AdminPage, type: routeEnum.AUTHED },
   logout: {
     path: "/logout",
     exact: false,

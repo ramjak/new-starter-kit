@@ -8,6 +8,8 @@ const TYPES = {
   PostRepository: "PostRepository",
   CommentRepository: "CommentRepository",
   UserRepository: "UserRepository",
+  AdminRepository: "AdminRepository",
+  FirebaseService: "FirebaseService",
 };
 
 export default TYPES;

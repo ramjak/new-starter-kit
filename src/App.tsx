@@ -26,6 +26,7 @@ function App() {
             getLinks("Home", ROUTES.homeUser),
             getLinks("Post", ROUTES.post),
             getLinks("User", ROUTES.user),
+            getLinks("Admin", ROUTES.admin),
             getLinks("Logout", ROUTES.logout),
           ]
         : []),

@@ -16,6 +16,10 @@ import CommentRepository from "./repositories/CommentRepository";
 import ICommentRepository from "./repositories/ICommentRepository";
 import IUserRepository from "./repositories/IUserRepository";
 import UserRepository from "./repositories/UserRepository";
+import AdminRepository from "./repositories/AdminRepository";
+import IAdminRepository from "./repositories/IAdminRepository";
+import IFirebaseService from "./services/IFirebaseService";
+import FirebaseService from "./services/FirebaseService";
 
 const container = new Container();
 
@@ -25,6 +29,10 @@ container
   .bind<IPersistentStorage>(TYPES.PersistentService)
   .toConstantValue(esCookie);
 container.bind<IRequestService>(TYPES.RequestService).to(RequestService);
+container
+  .bind<IFirebaseService>(TYPES.FirebaseService)
+  .to(FirebaseService)
+  .inSingletonScope();
 container.bind<IHttpService>(TYPES.HttpService).toConstantValue(axios);
 container
   .bind<IGraphQLService>(TYPES.GraphQLService)
@@ -34,6 +42,7 @@ container
 // repository block
 container.bind<IPostRepository>(TYPES.PostRepository).to(PostRepository);
 container.bind<IUserRepository>(TYPES.UserRepository).to(UserRepository);
+container.bind<IAdminRepository>(TYPES.AdminRepository).to(AdminRepository);
 container
   .bind<ICommentRepository>(TYPES.CommentRepository)
   .to(CommentRepository);
